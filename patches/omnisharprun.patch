@@ -1,0 +1,8 @@
+25c25
+<     "${mono_cmd}" "$@"
+---
+>     LD_LIBRARY_PATH="$(nix-build --no-out-link '<nixpkgs>' -A krb5)/lib" "${mono_cmd}" "$@"
+27c27
+<     "${mono_cmd}" "${omnisharp_cmd}" "$@"
+---
+>     LD_LIBRARY_PATH="$(nix-build --no-out-link '<nixpkgs>' -A krb5)/lib" "${mono_cmd}" "${omnisharp_cmd}" "$@"

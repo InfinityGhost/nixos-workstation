@@ -34,6 +34,8 @@
     cinnamon.nemo
     # Audio
     spotify
+    # Video
+    vlc
     # IDE
     vscode
     # Games

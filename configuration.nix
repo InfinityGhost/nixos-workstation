@@ -5,10 +5,12 @@
     ./hardware-configuration.nix
     ./kernel.nix
     ./users.nix
+    ./udev.nix
     ./network.nix
     ./storage.nix
     ./desktop.nix
     ./libvirt.nix
+    ./packages/nix-direnv-init.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -41,9 +43,12 @@
     wget
     git
     htop
+    zip
     unzip
     pciutils
+    usbutils
     mkpasswd
+    direnv
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
