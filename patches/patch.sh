@@ -27,10 +27,11 @@ function vsdbgPatch() {
 
   vsdbg_ui_patched="$(dirname $vsdbg)/vsdbg-ui_patched"
   mv "$vsdbg_ui" "$vsdbg_ui_patched"
-  echo "#!/usr/bin/env bash
+  cat > $vsdbg_ui <<EOF
+#!/usr/bin/env bash
 DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1 \
 LD_LIBRARY_PATH=$(dirname $vsdbg_ui):\$(nix-build --no-out-link '<nixpkgs>' -A icu.out)/lib:\$(nix-build --no-out-link '<nixpkgs>' -A openssl.out)/lib $vsdbg_ui_patched
-" > $vsdbg_ui
+EOF
   chmod +x "$vsdbg_ui"
 }
 
