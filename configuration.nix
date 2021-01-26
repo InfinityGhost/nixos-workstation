@@ -10,6 +10,7 @@
     ./storage.nix
     ./desktop.nix
     ./libvirt.nix
+    ./packages/win10.nix
     ./packages/nix-direnv-init.nix
     ./packages/osu-lazer-src.nix
   ];
@@ -18,7 +19,8 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "infinity-nixos"; # Define your hostname.
+  # Define your hostname.
+  networking.hostName = "infinity-nixos";
 
   # Set your time zone.
   time.timeZone = "America/New_York";
@@ -71,7 +73,6 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-  
+
   system.stateVersion = "20.09";
 }
-
