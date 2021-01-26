@@ -54,6 +54,10 @@
     direnv
   ];
 
+  # Automatically update packages
+  system.autoUpgrade.enable = true;
+  system.autoUpgrade.allowReboot = true;
+
   # Enable remote builds
   nix = {
     distributedBuilds = true;
