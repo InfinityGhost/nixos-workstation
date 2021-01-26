@@ -51,6 +51,15 @@
     direnv
   ];
 
+  # Enable remote builds
+  nix = {
+    distributedBuilds = true;
+    trustedUsers = [
+      "infinity"
+      "@root"
+    ];
+  };
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   programs.mtr.enable = true;

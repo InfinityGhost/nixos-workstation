@@ -36,6 +36,9 @@
     spotify
     # Video
     vlc
+    # Office
+    libreoffice
+    thunderbird
     # IDE
     vscode
     # Games

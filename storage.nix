@@ -1,12 +1,16 @@
 {
+  boot.supportedFilesystems = [
+    "ext4"
+    "ntfs"
+  ];
+
   fileSystems."/mnt/Archive" = {
     device = "/dev/disk/by-label/Archive";
     options = [
       "nofail"
       "rw"
       "uid=1000"
-      "gid=1000"
-      "umask=022"
+      "gid=100"
     ];
   };
 
@@ -16,8 +20,7 @@
       "nofail"
       "rw"
       "uid=1000"
-      "gid=1000"
-      "umask=022"
+      "gid=100"
     ];
   };
 
@@ -27,8 +30,7 @@
       "nofail"
       "rw"
       "uid=1000"
-      "gid=1000"
-      "umask=022"
+      "gid=100"
     ];
   };
 
