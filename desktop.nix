@@ -29,6 +29,7 @@
     cinnamon.mint-y-icons
     # Internet
     firefox
+    google-chrome
     discord
     # File Management
     cinnamon.nemo
