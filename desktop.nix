@@ -19,7 +19,8 @@
     gnome3.geary
     gnome3.nautilus
     gnome3.totem
-    gnome3.evince
+    gnome3.epiphany
+    gnome3.eog
   ];
 
   environment.systemPackages = with pkgs; [
@@ -31,10 +32,13 @@
     firefox
     google-chrome
     discord
+    transmission-gtk
     # File Management
     cinnamon.nemo
     # Audio
     spotify
+    # Photos
+    gthumb
     # Video
     vlc
     # Office
