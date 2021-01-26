@@ -11,6 +11,7 @@
     ./desktop.nix
     ./libvirt.nix
     ./packages/nix-direnv-init.nix
+    ./packages/osu-lazer-src.nix
   ];
 
   # Use the systemd-boot EFI boot loader.

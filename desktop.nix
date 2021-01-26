@@ -49,6 +49,8 @@
     virt-viewer
     # Streaming
     obs-studio
+    # Utilities
+    xclip
   ];
 
   fonts.fonts = with pkgs; [
