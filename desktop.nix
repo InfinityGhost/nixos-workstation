@@ -39,6 +39,7 @@
     spotify
     # Photos
     gthumb
+    gimp
     # Video
     vlc
     # Office
