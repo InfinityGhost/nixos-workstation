@@ -25,7 +25,7 @@
   };
 
   fileSystems."/mnt/VM" = {
-    device = "/dev/sdc1";
+    device = "/dev/disk/by-partuuid/ebf49ab0-01";
     options = [
       "nofail"
       "rw"
