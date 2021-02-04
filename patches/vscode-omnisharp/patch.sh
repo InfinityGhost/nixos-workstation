@@ -2,8 +2,8 @@
 
 basePath=$(dirname $0)
 
-csharpDir="$HOME/.vscode/extensions/ms-dotnettools.csharp-1.23.8"
-omnisharpDir="$csharpDir/.omnisharp/1.37.5"
+csharpDir=$(readlink -f $HOME/.vscode/extensions/ms-dotnettools.csharp-*)
+omnisharpDir=$(readlink -f $csharpDir/.omnisharp/*)
 
 function nb() {
   nix-build --no-out-link '<nixpkgs>' -A "$@"
@@ -36,11 +36,13 @@ EOF
 }
 
 function omnisharpPatch() {
-  patch "$omnisharpDir/run" omnisharprun.patch
+  patch "$omnisharpDir/run" run.patch
 }
 
 if [ -d "$omnisharpDir" ]; then
   monoPatch
   vsdbgPatch
   omnisharpPatch
+else
+  echo "Invalid directory: '$omnisharpDir'"
 fi
