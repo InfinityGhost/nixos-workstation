@@ -48,6 +48,7 @@
     # IDE
     vscode
     # Games
+    mesa
     steam
     lutris
     # Virtualization

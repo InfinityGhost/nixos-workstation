@@ -64,6 +64,14 @@
     ];
   };
 
+  # GNU nano settings
+  programs.nano.nanorc = ''
+    set suspend
+    set autoindent
+    set tabstospaces
+    set tabsize 2
+  '';
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   programs.mtr.enable = true;
