@@ -9,6 +9,7 @@
     ./network.nix
     ./storage.nix
     ./desktop.nix
+    ./printing.nix
     ./libvirt.nix
     ./packages/win10.nix
     ./packages/nix-direnv-init.nix
