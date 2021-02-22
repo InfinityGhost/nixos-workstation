@@ -21,6 +21,7 @@
     gnome3.totem
     gnome3.epiphany
     gnome3.eog
+    gnome3.gnome-remote-desktop
   ];
 
   environment.systemPackages = with pkgs; [
