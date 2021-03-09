@@ -9,6 +9,10 @@
     # Wacom CTL-480
     SUBSYSTEM=="hidraw", ATTRS{idVendor}=="056a", ATTRS{idProduct}=="030e", MODE="0666"
     SUBSYSTEM=="usb", ATTRS{idVendor}=="056a", ATTRS{idProduct}=="030e", MODE="0666"
+    # Wacom MTE-450
+    SUBSYSTEM=="hidraw", ATTRS{idVendor}=="056a", ATTRS{idProduct}=="0065", MODE="0666"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="056a", ATTRS{idProduct}=="0065", MODE="0666"
+    SUBSYSTEM=="input", ATTRS{idVendor}=="056a", ATTRS{idProduct}=="0065", ENV{LIBINPUT_IGNORE_DEVICE}="1"
 
     # ds4drv (https://github.com/epigramx/ds4drv-cemuhook/blob/master/udev/50-ds4drv.rules)
     KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="054c", ATTRS{idProduct}=="05c4", MODE="0666"
