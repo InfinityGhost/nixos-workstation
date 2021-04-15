@@ -6,6 +6,9 @@
     # Wacom CTL-470
     SUBSYSTEM=="hidraw", ATTRS{idVendor}=="056a", ATTRS{idProduct}=="00dd", MODE="0666"
     SUBSYSTEM=="usb", ATTRS{idVendor}=="056a", ATTRS{idProduct}=="00dd", MODE="0666"
+    # Wacom CTH-470
+    SUBSYSTEM=="hidraw", ATTRS{idVendor}=="056a", ATTRS{idProduct}=="00de", MODE="0666"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="056a", ATTRS{idProduct}=="00de", MODE="0666"
     # Wacom CTL-480
     SUBSYSTEM=="hidraw", ATTRS{idVendor}=="056a", ATTRS{idProduct}=="030e", MODE="0666"
     SUBSYSTEM=="usb", ATTRS{idVendor}=="056a", ATTRS{idProduct}=="030e", MODE="0666"
