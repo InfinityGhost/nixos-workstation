@@ -2,6 +2,7 @@
 
 {
   boot = {
+    kernelPackages = pkgs.linuxPackages_5_4;
     kernelPatches = [
       {
         name = "acso";
