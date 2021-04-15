@@ -9,9 +9,7 @@
     displayManager.gdm.enable = true;
 
     # GNOME 3 Desktop Environment
-    desktopManager.gnome3 = {
-      enable = true;
-    };
+    desktopManager.gnome3.enable = true;
   };
 
   environment.gnome3.excludePackages = with pkgs; [
