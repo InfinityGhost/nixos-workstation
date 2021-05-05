@@ -48,7 +48,6 @@
     vscode
     # Games
     mesa
-    steam
     lutris
     # Virtualization
     virt-manager
@@ -58,6 +57,8 @@
     # Utilities
     xclip
   ];
+
+  programs.steam.enable = true;
 
   fonts.fonts = with pkgs; [
     terminus_font_ttf
