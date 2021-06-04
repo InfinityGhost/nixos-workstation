@@ -4,28 +4,29 @@
   services.xserver = {
     enable = true;
     videoDrivers = [ "nvidia" ];
-    
+
     # GNOME Display Manager
     displayManager.gdm.enable = true;
 
-    # GNOME 3 Desktop Environment
-    desktopManager.gnome3.enable = true;
+    # GNOME Desktop Environment
+    desktopManager.gnome.enable = true;
   };
 
-  environment.gnome3.excludePackages = with pkgs; [
-    gnome3.cheese
-    gnome3.geary
-    gnome3.nautilus
-    gnome3.totem
-    gnome3.epiphany
-    gnome3.eog
-    gnome3.gnome-remote-desktop
+  environment.gnome.excludePackages = with pkgs.gnome; [
+    cheese
+    geary
+    nautilus
+    totem
+    epiphany
+    eog
+    gnome-remote-desktop
   ];
 
   environment.systemPackages = with pkgs; [
-    # GNOME stuff
-    gnome3.gnome-tweaks
-    # Theme
+    # GNOME Software
+    gnome.gnome-tweaks
+    gnomeExtensions.vertical-overview
+    # GTK+ Theme
     cinnamon.mint-y-icons
     # Internet
     firefox
