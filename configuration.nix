@@ -11,6 +11,7 @@
     ./desktop.nix
     ./printing.nix
     ./libvirt.nix
+    ./containers.nix
     ./packages/win10.nix
     ./packages/nix-direnv-init.nix
     ./packages/osu-lazer-src.nix
