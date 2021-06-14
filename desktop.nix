@@ -19,7 +19,6 @@
     totem
     epiphany
     eog
-    gnome-remote-desktop
   ];
 
   environment.systemPackages = with pkgs; [
@@ -35,11 +34,13 @@
     transmission-gtk
     # File Management
     cinnamon.nemo
+    uget
     # Audio
     spotify
     # Photos
     gthumb
     gimp
+    krita
     # Video
     vlc
     # Office
@@ -57,6 +58,7 @@
     obs-studio
     # Utilities
     xclip
+    scrcpy
   ];
 
   programs.steam.enable = true;
