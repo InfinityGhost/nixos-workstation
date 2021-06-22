@@ -16,6 +16,9 @@
     SUBSYSTEM=="hidraw", ATTRS{idVendor}=="056a", ATTRS{idProduct}=="0065", MODE="0666"
     SUBSYSTEM=="usb", ATTRS{idVendor}=="056a", ATTRS{idProduct}=="0065", MODE="0666"
     SUBSYSTEM=="input", ATTRS{idVendor}=="056a", ATTRS{idProduct}=="0065", ENV{LIBINPUT_IGNORE_DEVICE}="1"
+    # Wacom PTZ-630
+    SUBSYSTEM=="hidraw", ATTRS{idVendor}=="056a", ATTRS{idProduct}=="00b1", MODE="0666"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="056a", ATTRS{idProduct}=="00b1", MODE="0666"
 
     # ds4drv (https://github.com/epigramx/ds4drv-cemuhook/blob/master/udev/50-ds4drv.rules)
     KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="054c", ATTRS{idProduct}=="05c4", MODE="0666"
