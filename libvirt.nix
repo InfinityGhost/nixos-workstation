@@ -1,5 +1,18 @@
 { pkgs, ... }:
 
+let
+  createShare = path: {
+    path = path;
+    browseable = "yes";
+    "acl allow execute always" = "true";
+    "read only" = "no";
+    "guest ok" = "yes";
+    "create mask" = "0644";
+    "directory mask" = "0755";
+    "force user" = "infinity";
+    "force group" = "users";
+  };
+in
 {
   virtualisation.libvirtd = {
     enable = true;
@@ -25,17 +38,8 @@
       map to guest = bad user
     '';
     shares = {
-      games = {
-        path = "/games";
-        browseable = "yes";
-        "acl allow execute always" = "true";
-        "read only" = "no";
-        "guest ok" = "yes";
-        "create mask" = "0644";
-        "directory mask" = "0755";
-        "force user" = "infinity";
-        "force group" = "users";
-      };
+      games = createShare "/games";
+      vmshare = createShare "/server/VM";
     };
   };
 }
