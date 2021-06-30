@@ -9,6 +9,7 @@
     ./network.nix
     ./storage.nix
     ./desktop.nix
+    ./work.nix
     ./printing.nix
     ./libvirt.nix
     ./containers.nix
