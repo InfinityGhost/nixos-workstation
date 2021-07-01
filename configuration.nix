@@ -1,7 +1,12 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
+let
+  listFiles = dir: lib.mapAttrsToList (name: type:
+    "${dir}/${name}"
+  ) (builtins.readDir dir);
+in
 {
-  imports = [
+  imports = lib.lists.flatten [
     ./hardware-configuration.nix
     ./kernel.nix
     ./users.nix
@@ -13,9 +18,7 @@
     ./printing.nix
     ./libvirt.nix
     ./containers.nix
-    ./packages/win10.nix
-    ./packages/nix-direnv-init.nix
-    ./packages/osu-lazer-src.nix
+    (listFiles ./packages)
   ];
 
   # Use the systemd-boot EFI boot loader.

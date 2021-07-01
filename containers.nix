@@ -1,34 +1,22 @@
+let
+  mkContainer = name: {
+    enable = true;
+    execConfig = {
+      Timezone = "Bind";
+      Hostname = "${name}-container";
+    };
+    filesConfig = {
+      Bind = [ "/repos" ];
+      Volatile = false;
+    };
+    networkConfig = {
+      Private = true;
+      VirtualEthernet = true;
+      Bridge = "virbr0";
+    };
+  };
+in
 {
-  systemd.nspawn."fedora" = {
-    enable = true;
-    execConfig = {
-      Timezone = "Bind";
-      Hostname = "fedora-container";
-    };
-    filesConfig = {
-      Bind = [ "/repos" ];
-      Volatile = false;
-    };
-    networkConfig = {
-      Private = true;
-      VirtualEthernet = true;
-      Bridge = "virbr0";
-    };
-  };
-  systemd.nspawn."ubuntu" = {
-    enable = true;
-    execConfig = {
-      Timezone = "Bind";
-      Hostname = "ubuntu-container";
-    };
-    filesConfig = {
-      Bind = [ "/repos" ];
-      Volatile = false;
-    };
-    networkConfig = {
-      Private = true;
-      VirtualEthernet = true;
-      Bridge = "virbr0";
-    };
-  };
+  systemd.nspawn."fedora" = mkContainer "fedora";
+  systemd.nspawn."ubuntu" = mkContainer "ubuntu";
 }
