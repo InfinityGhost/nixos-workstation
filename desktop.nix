@@ -45,6 +45,7 @@
     google-chrome
     discord
     transmission-gtk
+    gnome-feeds
     # File Management
     cinnamon.nemo
     uget
