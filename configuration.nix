@@ -14,11 +14,13 @@ in
     ./network.nix
     ./storage.nix
     ./desktop.nix
+    ./pipewire.nix
     ./work.nix
     ./printing.nix
     ./libvirt.nix
     ./containers.nix
     (listFiles ./packages)
+    (listFiles ./modules)
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -40,7 +42,6 @@ in
 
   # Enable sound.
   sound.enable = true;
-  hardware.pulseaudio.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
