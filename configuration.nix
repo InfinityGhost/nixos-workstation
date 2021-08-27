@@ -13,6 +13,7 @@ in
     ./udev.nix
     ./network.nix
     ./storage.nix
+    ./terminal.nix
     ./desktop.nix
     ./pipewire.nix
     ./work.nix
