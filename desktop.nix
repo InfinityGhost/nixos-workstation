@@ -62,6 +62,7 @@
     thunderbird
     # IDE
     vscode
+    jetbrains.rider
     # Games
     mesa
     lutris
