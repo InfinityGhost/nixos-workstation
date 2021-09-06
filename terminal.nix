@@ -27,7 +27,7 @@
     promptInit = ''
       NEWLINE=''$'\n'
 
-      if [ "$TERM" != "linux" ] && [ "$TERM_PROGRAM" != "vscode" ]; then
+      if [ "$TERM" != "linux" ] && [ "$TERM_PROGRAM" != "vscode" ] && [ -z "''${RIDER_VM_OPTIONS+x}" ]; then
         # vcs_info Configuration
         autoload -Uz vcs_info
         zstyle ':vcs_info:*' check-for-changes true

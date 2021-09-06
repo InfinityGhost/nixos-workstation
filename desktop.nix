@@ -66,6 +66,7 @@
     # Games
     mesa
     lutris
+    osu-lazer
     # Virtualization
     virt-manager
     virt-viewer

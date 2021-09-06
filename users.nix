@@ -14,6 +14,7 @@
     ];
     packages = with pkgs; [
       neofetch
+      dotnet-sdk_5
     ];
     openssh.authorizedKeys.keys = [
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCuqG/d0hyLjaB3vTQbMWTAsQ5hd7FoGtF53iZFAR+Aex2SAOkdlan9kbzheHq3/1APLaVP9xGKwAbzUrv5gtg8oaYzJ4/QH3sD9//5jSMNJdyUbVeUJIhqUuEf0EqCvzb7v49vhOMzsGqWQOsMpgBYQSpGI1zZe29pSDFrgtg7AkQZKm2/exOeoScJKYFQibsyk74nctsniwbylHsim5uMxtsMzTD9dEUllu2m8C5qHoxb6wgyOR4uzDYGRHlDR++UKDN7DvR1OhF7I/jXrBxSYAmNNWIRJ7LLRnuxOe6sxkbND7eHuZJmeJpOvG0ktq1HWsEavUnyBb4OqdB+9RIuBffweR102Yzm3e+tNKGQO0zIDpWuibGWAW+z33n3rWWafz7K20RessvZy7jhrSAkfNjHWzvW+ffyGPKG7YMuYsiIGA5cSQH+35fFUrvTaRyEcpJCfRyXGvlEQxperlWogxWwYqQmCCej73RtsD+Ums3VwakAuK3hiA5lieHdKaH6GAh/9xX7uTuvQTYvsaY23h+qBOzLYkVd65SZNWOcLWnnobajGaiUyjY0l9+zscHdbEFJxkCl7PWxgzJmCDpbc/4DzBC1xD6X1ZCz2Bovs183MKBqYymCZl6j5MhiBQ8H5vt3Tu/SBDvPB1F1viPFsf++UKdYNRZbCYopFfKKLw== JuiceSSH"
