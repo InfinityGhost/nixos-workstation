@@ -24,12 +24,4 @@
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDFKuxkr5O28VTEczXgbxq98R+zgFTFSps74/KBa5YRTP9mdsZKw9b8M9eGE2+FKYkyvuG7moso2bpVXDIHt08H+N4z/SUO1OtZ+Db9hdFb59XQicfr/XRetkBYAXJp6qErPZBovLLgsZ0/16p855nPZKjhu33U3N8UM3EYSm6qyyV6brEA5JsjaL33nPJRt5i1D3CNTha59lU2AS00B9yfEkuYGZg8McebV+JIsIrh7EoTZsJI7RfeRJHJS5fbttk7hjHW8zeevAhJoGfjRU2S7JcwfLzvuintRxgO3XktQxE8HTLBOzFMK/nhaeQOfinlKVNk03biFFlAFdwjF0Ewl+tsKxCXta76KM43HLYMZ157gtQU9sPfghbB7NZzvfYSyf/2U6H90VmnhdBswv3FlC1UT/1isXd2+9O97SXV8/Q7hGrP36FMuI9Cz8MnckUJ44CqVIg3ete3H7ipYZ9o0hr1V5alzwaYrQfPFWgD39DvPElNTWVXOOGrJEUTGgQTnVJm3pgmcfYNeuFohMs4hhNNdnxYfJ5GkTD1nuFlgRYYPWwin4MwzRTDNxAFxYIX6626Xn0UskQgL2HieUuyXLrN0W8yKpZ+YxjyJVO+KqRx8n0LX4vborGemKDRdwP6HpexakHZ4L2YkkMi+56n52yOVoDZq/CE0aHIt2GcQQ== infinity@win10-vfio"
     ];
   };
-
-  users.users.sky = {
-    isNormalUser = true;
-    extraGroups = [
-      "libvirtd"
-    ];
-    password = "";
-  };
 }
