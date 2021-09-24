@@ -16,7 +16,6 @@ in
     ./terminal.nix
     ./desktop.nix
     ./pipewire.nix
-    ./work.nix
     ./printing.nix
     ./libvirt.nix
     ./containers.nix
