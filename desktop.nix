@@ -31,6 +31,14 @@
           sha256 = "1jvz435jdy0x6kq1n9cxalhw88r7gg2sxlz78cghdm7cq8msvxi2";
         };
       });
+      discord = super.discord.overrideAttrs (old: {
+        version = "0.0.16";
+        src = super.fetchurl {
+          url = "https://dl.discordapp.net/apps/linux/0.0.16/discord-0.0.16.tar.gz";
+          sha256 = "1s9qym58cjm8m8kg3zywvwai2i3adiq6sdayygk2zv72ry74ldai";
+        };
+      });
+      minecraft-bedrock = super.callPackage ./overlays/minecraft-bedrock {};
     })
   ];
 
@@ -57,6 +65,7 @@
     krita
     # Video
     vlc
+    flowblade
     # Office
     libreoffice
     thunderbird
@@ -67,6 +76,9 @@
     mesa
     lutris
     osu-lazer
+    minecraft
+    minecraft-bedrock
+    dolphinEmu
     # Virtualization
     virt-manager
     virt-viewer
@@ -75,6 +87,8 @@
     # Utilities
     xclip
     scrcpy
+    # Steam Dependencies
+    python3
   ];
 
   programs.steam.enable = true;
