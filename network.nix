@@ -11,7 +11,6 @@ in
   networking.firewall.enable = false;
 
   services.openvpn.servers = {
-    office = mkVPN "corp";
     mullvad = mkVPN "mullvad";
   };
 }
