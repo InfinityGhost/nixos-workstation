@@ -17,6 +17,8 @@ let
   };
 in
 {
-  systemd.nspawn."fedora" = mkContainer "fedora";
-  systemd.nspawn."ubuntu" = mkContainer "ubuntu";
+  systemd.nspawn = {
+    fedora = mkContainer "fedora";
+    ubuntu = mkContainer "ubuntu";
+  };
 }
