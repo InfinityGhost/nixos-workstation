@@ -14,10 +14,6 @@ let
     sha256 = "04p9kc08jd1yvyrjr6g2wbp8a0f76x0kfp4bgcj7v0d654vy6p1p";
   };
 
-  appimageContents = appimageTools.extractType2 {
-    inherit name src;
-  };
-
   desktopItem = makeDesktopItem {
     name = pname;
     exec = pname;
