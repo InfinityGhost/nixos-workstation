@@ -24,6 +24,7 @@ in
       max-players = 5;
       white-list = false;
       enable-rcon = false;
+      allow-flight = true;
     };
     operators = {
       InfinityGhost = "b780259d-7f37-4043-a571-564ea04ce34e";
@@ -38,6 +39,11 @@ in
         name = "Floodgate";
         url = "https://ci.opencollab.dev/job/GeyserMC/job/Floodgate/job/master/40/artifact/spigot/target/floodgate-spigot.jar";
         sha256 = "1n323nz1hphsyzp7479nf8b72l0sa6zl40av97wk86kwvhyb990n";
+      })
+      (builtins.fetchurl {
+        name = "EssentialsX";
+        url = "https://github.com/EssentialsX/Essentials/releases/download/2.19.0/EssentialsX-2.19.0.jar";
+        sha256 = "03jn9grinjlh2kc8i1gcvj3bz7mww4z131aj1s7kw9qk7p20nn1r";
       })
     ];
   };
