@@ -19,6 +19,7 @@ in
     ./printing.nix
     ./libvirt.nix
     ./containers.nix
+    ./minecraft-server.nix
     (listFiles ./packages)
     (listFiles ./modules)
   ];
