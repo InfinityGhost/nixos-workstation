@@ -223,11 +223,13 @@ in {
 
         # Link all plugins
         mkdir -p ${cfg.dataDir}/plugins
-        [ -f ${cfg.dataDir}/plugins/*.jar ] && rm ${cfg.dataDir}/plugins/*.jar
         '' + "plugins=(" + (concatStringsSep " " pluginPaths) + ")" + "\n" + ''
         for jar in ''${plugins[@]}; do
           basename=`basename $jar`
-          ln -s $jar ${cfg.dataDir}/plugins/''${basename:33}.jar
+          name=''${basename:33}.jar
+          path="${cfg.dataDir}/plugins/$name"
+          [ -f "$path" ] && rm $path
+          ln -s $jar $path
         done
       '';
     };
