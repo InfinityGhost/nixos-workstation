@@ -22,7 +22,7 @@ let
     desktopName = "Minecraft Bedrock";
     categories = "Game;";
   };
-  
+
 in appimageTools.wrapType2 rec {
   inherit name src;
 
