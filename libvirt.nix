@@ -24,6 +24,23 @@ in
     ];
   };
 
+  services.single-gpu-passthrough = {
+    enable = true;
+    machines = [
+      "win10-vfio"
+      "macos-vfio"
+    ];
+    pciDevices = {
+      "0000:01:00.0" = "nvidia";        # GPU
+      "0000:01:00.1" = "snd_hda_intel"; # GPU Audio
+      "0000:00:1b.0" = "snd_hda_intel"; # Onboard Audio Controller
+      "0000:00:14.0" = "xhci_hcd";      # xHCI Controller
+    };
+    extraModules = [
+      "nvidiafb"
+    ];
+  };
+
   services.samba = {
     enable = true;
     securityType = "user";
