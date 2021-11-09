@@ -14,7 +14,7 @@ let
     hookPath="${cfg.qemuHookPath}"
 
     # Back up any imperative hooks
-    [ -f "$hookPath" ] && [ -h "$hookPath" ] && mv "$hookPath" "''${hookPath}.stateful"
+    [ -f "$hookPath" ] && [ ! -h "$hookPath" ] && mv "$hookPath" "''${hookPath}.stateful"
     
     # Link declarative hook
     [ -h "$hookPath" ] && rm "$hookPath"
