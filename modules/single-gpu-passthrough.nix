@@ -41,6 +41,7 @@ let
     displaymanager="${displayManagerService}"
 
     drivers=(${modulesStr})
+    vfiodrivers=("vfio" "vfio_pci" "vfio_iommu_type1")
 
     function binddriver() {
       busid=$1
@@ -176,7 +177,7 @@ in {
 
       pciDevices = mkOption {
         type = with types; attrsOf str;
-        default = [];
+        default = {};
         description = ''
           The drivers to bind while one of the virtual machines is running.
         '';
