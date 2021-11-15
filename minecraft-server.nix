@@ -4,6 +4,18 @@ let
   allocatedMemory = "3072M";
 in
 {
+  nixpkgs.overlays = [
+    (self: super: rec {
+      papermc = super.papermc.overrideAttrs (old: {
+        buildPhase = ''
+          cat > minecraft-server << EOF
+          #!${super.bash}/bin/sh
+          exec ${super.adoptopenjdk-jre-hotspot-bin-16}/bin/java \$@ -jar $out/share/papermc/papermc.jar nogui
+        '';
+      });
+    })
+  ];
+
   services.minecraft-server-plugins = {
     enable = true;
     eula = true;
