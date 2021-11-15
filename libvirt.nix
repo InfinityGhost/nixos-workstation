@@ -28,6 +28,7 @@ in
     enable = true;
     machines = [
       "win10-vfio"
+      "win11-vfio"
       "macos-vfio"
     ];
     pciDevices = {
