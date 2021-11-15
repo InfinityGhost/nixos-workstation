@@ -196,10 +196,11 @@ in {
   config = mkIf cfg.enable {
     systemd.services.single-gpu-passthrough = {
       description = "Single GPU passthrough helper service";
-      wantedBy    = [ "multi-user.target" ];
+      wantedBy = [ "multi-user.target" ];
       enable = true;
 
       serviceConfig = {
+        Type = "oneshot";
         ExecStart = "${hookInstaller}/bin/qemu-hook-installer";
         RemainAfterExit = "true";
         Restart = "no";
