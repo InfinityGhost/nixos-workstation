@@ -32,10 +32,10 @@ in
       "macos-vfio"
     ];
     pciDevices = {
-      "0000:01:00.0" = "nvidia";        # GPU
-      "0000:01:00.1" = "snd_hda_intel"; # GPU Audio
-      "0000:00:1b.0" = "snd_hda_intel"; # Onboard Audio Controller
-      "0000:00:14.0" = "xhci_hcd";      # xHCI Controller
+      "0000:2d:00.0" = "nvidia";        # GPU
+      "0000:2d:00.1" = "snd_hda_intel"; # GPU Audio
+      "0000:2f:00.4" = "snd_hda_intel"; # Onboard Audio Controller
+      "0000:2f:00.3" = "xhci_hcd";      # xHCI Controller
     };
     extraModules = [
       "nvidiafb"

@@ -6,7 +6,7 @@ let
 in
 {
   networking.useDHCP = false;
-  networking.interfaces.enp3s0.useDHCP = true;
+  networking.interfaces.enp39s0.useDHCP = true;
 
   networking.firewall.enable = false;
 
