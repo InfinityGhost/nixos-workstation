@@ -61,6 +61,15 @@ in {
         '';
       };
 
+      autoStart = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+          If enabled, the server will be started as soon as the network is available.
+          It will need to be started manually otherwise.
+        '';
+      };
+
       eula = mkOption {
         type = types.bool;
         default = false;
@@ -187,7 +196,7 @@ in {
 
     systemd.services.minecraft-server = {
       description   = "Minecraft Server Service";
-      wantedBy      = [ "multi-user.target" ];
+      wantedBy      = optional cfg.autoStart "multi-user.target";
       after         = [ "network.target" ];
 
       serviceConfig = {
