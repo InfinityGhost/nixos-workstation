@@ -41,6 +41,7 @@
       rider = super.callPackage ./overlays/rider {};
       android-screen = super.callPackage ./overlays/android-screen {};
       minecraft-bedrock = super.callPackage ./overlays/minecraft-bedrock {};
+      cemu = super.callPackage ./overlays/cemu {};
     })
   ];
 
@@ -81,6 +82,7 @@
     minecraft
     minecraft-bedrock
     dolphinEmu
+    cemu
     gnome.aisleriot
     gnome.quadrapassel
     # Virtualization
