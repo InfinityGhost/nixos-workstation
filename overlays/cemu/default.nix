@@ -14,13 +14,13 @@ with lib;
 
 let
   pname = "cemu";
-  version = "1.22.2";
+  version = "1.22.13";
   hookVersion = "1159_0573";
 
   cemu = fetchzip {
     name = "cemu-bin";
     url = "https://cemu.info/releases/cemu_${version}.zip";
-    sha256 = "1jvhw0w1dman5lsw5prh6k0nk7nrkzyszg8wqb5rlsx9mx8b310s";
+    sha256 = "1szdcb6vlklghc8r1611imh2pai6gb2rrwrrwi530sqdy0ygffb6";
   };
 
   cemuhook = fetchzip {
