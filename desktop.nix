@@ -38,7 +38,6 @@
           sha256 = "1s9qym58cjm8m8kg3zywvwai2i3adiq6sdayygk2zv72ry74ldai";
         };
       });
-      rider = super.callPackage ./overlays/rider {};
       android-screen = super.callPackage ./overlays/android-screen {};
       minecraft-bedrock = super.callPackage ./overlays/minecraft-bedrock {};
       cemu = super.callPackage ./overlays/cemu {};
@@ -74,7 +73,7 @@
     thunderbird
     # IDE
     vscode
-    rider
+    jetbrains.rider
     # Games
     mesa
     lutris

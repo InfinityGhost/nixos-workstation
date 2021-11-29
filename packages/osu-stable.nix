@@ -1,15 +1,17 @@
+{ pkgs, lib, ... }:
+
 let
-  osu-nix-tarball = builtins.fetchTarball {
-    url = "https://github.com/fufexan/osu.nix/archive/6fc02d0b88d29ea346bdcb91fff6601b922a10e0.tar.gz";
-    sha256 = "1cfq1z6xcazg2zrkpbb3pd1awxyn0mskghjzj9vf6m23mxziv31k";
+  nix-gaming-tarball = pkgs.fetchFromGitHub {
+    owner = "fufexan";
+    repo = "nix-gaming";
+    rev = "caf86b1dd4b4cdd59970590eaaa9c009c9f1e6ea";
+    sha256 = "sha256-ZkUW8JfjDmFZnRQKeBKQvqlWLRgIq4p6v2QfLrjSm0s=";
   };
-  osu-nix = import (osu-nix-tarball);
-  osu-stable = osu-nix.defaultPackage.x86_64-linux;
-  discord-ipc-bridge = osu-nix.packages.x86_64-linux.discord-ipc-bridge;
+  nix-gaming = import (nix-gaming-tarball);
 in
 {
-  environment.systemPackages = [
+  environment.systemPackages = with nix-gaming.packages.x86_64-linux; [
     osu-stable
-    discord-ipc-bridge
+    winestreamproxy
   ];
 }
