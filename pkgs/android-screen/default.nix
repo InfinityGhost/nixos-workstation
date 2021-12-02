@@ -1,12 +1,11 @@
 { lib
-, stdenv
+, symlinkJoin
 , scrcpy
 , makeDesktopItem
 }:
 
 let
-  name = "android-screen";
-  version = "1.0.0";
+  pname = "android-screen";
 
   desktopItem = makeDesktopItem {
     inherit name;
@@ -16,13 +15,7 @@ let
     desktopName = "Android Screen";
   };
 
-in stdenv.mkDerivation {
-  inherit name version;
-
-  unpackPhase = "true";
-
-  installPhase = ''
-    mkdir -p $out/share
-    cp -rt $out/share ${desktopItem}/share/applications
-  '';
+in symlinkJoin {
+  name = pname;
+  paths = [ desktopItem ];
 }
