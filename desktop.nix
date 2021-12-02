@@ -8,8 +8,8 @@
     # GNOME Display Manager
     displayManager.gdm = {
       enable = true;
-      wayland = true;
-      nvidiaWayland = true;
+      wayland = false;
+      nvidiaWayland = false;
     };
 
     # GNOME Desktop Environment
