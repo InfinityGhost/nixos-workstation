@@ -1,10 +1,5 @@
 { config, pkgs, lib, ... }:
 
-let
-  listFiles = dir: lib.mapAttrsToList (name: type:
-    "${dir}/${name}"
-  ) (builtins.readDir dir);
-in
 {
   imports = lib.lists.flatten [
     ./hardware-configuration.nix
@@ -19,17 +14,11 @@ in
     ./printing.nix
     ./libvirt.nix
     ./containers.nix
-    ./minecraft-server.nix
-    (listFiles ./packages)
-    (listFiles ./modules)
   ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
-  # Define your hostname.
-  networking.hostName = "infinity-nixos";
 
   # Set your time zone.
   time.timeZone = "America/New_York";
@@ -71,6 +60,10 @@ in
       "infinity"
       "@root"
     ];
+    extraOptions = ''
+      experimental-features = nix-command
+      experimental-features = nix-command flakes
+    '';
   };
 
   # GNU nano settings

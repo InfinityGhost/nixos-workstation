@@ -1,7 +1,11 @@
-{ pkgs, ... }:
+{ lib
+, writers
+, symlinkJoin
+}:
 
 let
-  nix-direnv-init = pkgs.writers.writeBashBin "nix-direnv-init" ''
+  pname = "nix-direnv-init";
+  bin = writers.writeBashBin pname ''
     function check-file
     {
       if [ -e "$1" ]; then
@@ -31,9 +35,7 @@ let
 
     direnv allow
   '';
-in
-{
-  environment.systemPackages = [
-    nix-direnv-init
-  ];
+in symlinkJoin {
+  name = pname;
+  paths = [ bin ];
 }

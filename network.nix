@@ -5,10 +5,12 @@ let
   };
 in
 {
-  networking.useDHCP = false;
-  networking.interfaces.enp39s0.useDHCP = true;
-
-  networking.firewall.enable = false;
+  networking = {
+    hostName = "nixos-workstation";
+    useDHCP = false;
+    interfaces.enp39s0.useDHCP = true;
+    firewall.enable = false;
+  };
 
   services.openvpn.servers = {
     mullvad = mkVPN "mullvad";
