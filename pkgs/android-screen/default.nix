@@ -8,7 +8,7 @@ let
   pname = "android-screen";
 
   desktopItem = makeDesktopItem {
-    inherit name;
+    name = pname;
     exec = "${scrcpy}/bin/scrcpy -Sw";
     icon = "androidstudio";
     comment = "Android Screen shortcut with scrcpy";
