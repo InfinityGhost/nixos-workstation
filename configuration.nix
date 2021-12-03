@@ -53,19 +53,6 @@
   system.autoUpgrade.enable = true;
   system.autoUpgrade.allowReboot = true;
 
-  # Enable remote builds
-  nix = {
-    distributedBuilds = true;
-    trustedUsers = [
-      "infinity"
-      "@root"
-    ];
-    extraOptions = ''
-      experimental-features = nix-command
-      experimental-features = nix-command flakes
-    '';
-  };
-
   # GNU nano settings
   programs.nano.nanorc = ''
     set suspend
