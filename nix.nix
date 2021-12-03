@@ -1,3 +1,5 @@
+{ inputs, ... }:
+
 {
   nix = {
     distributedBuilds = true;

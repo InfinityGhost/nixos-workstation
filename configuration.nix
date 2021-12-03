@@ -2,6 +2,7 @@
 
 {
   imports = lib.lists.flatten [
+    ./nix.nix
     ./hardware-configuration.nix
     ./kernel.nix
     ./users.nix
