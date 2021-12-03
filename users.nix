@@ -1,5 +1,11 @@
 { pkgs, ... }:
 
+let
+  dotnet-sdk = with pkgs.dotnetCorePackages; combinePackages [
+    sdk_5_0
+    sdk_6_0
+  ];
+in
 {
   # Make users immutable, passwords must be set
   users.mutableUsers = false;
@@ -14,7 +20,7 @@
     ];
     packages = with pkgs; [
       neofetch
-      dotnet-sdk_6
+      dotnet-sdk
       nix-direnv-init
     ];
     openssh.authorizedKeys.keys = [
