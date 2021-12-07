@@ -28,8 +28,8 @@ let
 
   machinesStr = listToSpacedStr cfg.machines;
 
-  attachHookCommands = builtins.concatStringsSep "\n" (mapAttrsToList (name: value: "binddriver \"${name}\" \"${value}\"") cfg.pciDevices);
-  detachHookCommands = builtins.concatStringsSep "\n" (mapAttrsToList (name: value: "binddriver \"${name}\" \"vfio-pci\"") cfg.pciDevices);
+  attachHookCommands = builtins.concatStringsSep "\n  " (mapAttrsToList (name: value: "binddriver \"${name}\" \"${value}\"") cfg.pciDevices);
+  detachHookCommands = builtins.concatStringsSep "\n  " (mapAttrsToList (name: value: "binddriver \"${name}\" \"vfio-pci\"") cfg.pciDevices);
 
   modules = lib.lists.flatten [
     (map toString cfg.extraModules)
@@ -47,6 +47,10 @@ let
       busid=$1
       driver=$2
 
+      if [ -z "$busid" ] || [ -z "$driver" ]; then
+        return
+      fi
+
       devPath="/sys/bus/pci/devices/$busid"
       vendor=$(cat "$devPath/vendor")
       product=$(cat "$devPath/device")
@@ -55,15 +59,24 @@ let
       driverPath="/sys/bus/pci/drivers/$driver"
 
       if [ -e $driverPath ]; then
-        echo "Attempting to bind $driver to $id"
+        echo "Attempting to bind $driver to $devPath"
+        
         # Prime for switching to a new driver
-        echo $id > /sys/bus/pci/drivers/$driver/new_id
+        echo $id > $driverPath/new_id
+        
         # Unbind from the current driver
-        echo $busid > /sys/bus/pci/devices/$busid/driver/unbind
+        echo "Unbinding $devPath from its driver"
+        echo $busid > $devPath/driver/unbind
+        
         # Bind to the new driver
-        echo $busid > /sys/bus/pci/drivers/$driver/bind
+        echo "Binding $devPath to $driver"
+        echo $busid > $driverPath/bind
+
         # Finalize driver switch
-        echo $id > /sys/bus/pci/drivers/$driver/remove_id
+        echo "Finalizing driver switch for $devPath"
+        echo $id > $driverPath/remove_id
+        
+        echo "$driver successfully bound to $devPath"
       else
         echo "Driver '$driver' does not exist, nothing was switched."
       fi
