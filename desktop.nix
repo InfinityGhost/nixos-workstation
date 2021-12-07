@@ -16,9 +16,6 @@
     desktopManager.gnome.enable = true;
   };
 
-  # Wayland support on NVIDIA
-  hardware.nvidia.modesetting.enable = true;
-
   environment.gnome.excludePackages = with pkgs.gnome; [
     cheese
     geary
