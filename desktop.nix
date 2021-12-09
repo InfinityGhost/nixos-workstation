@@ -59,7 +59,7 @@
     mesa
     lutris
     osu-lazer
-    inputs.fufexan.packages.x86_64-linux.osu-stable
+#    inputs.fufexan.packages.x86_64-linux.osu-stable
     minecraft
     minecraft-bedrock
     dolphinEmu

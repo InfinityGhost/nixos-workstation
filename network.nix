@@ -1,12 +1,13 @@
 let
   mkVPN = name: {
-    config = "config /root/.openvpn/${name}/${name}.ovpn";
+    config = "config /var/lib/openvpn/${name}/${name}.ovpn";
     autoStart = false;
   };
 in
 {
   networking = {
     hostName = "nixos-workstation";
+    hostId = "002199b0";
     useDHCP = false;
     interfaces.enp39s0.useDHCP = true;
     firewall.enable = false;

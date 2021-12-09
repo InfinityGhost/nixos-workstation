@@ -27,9 +27,7 @@ in
   services.single-gpu-passthrough = {
     enable = true;
     machines = [
-      "win10-vfio"
       "win11-vfio"
-      "macos-vfio"
     ];
     pciDevices = {
       "0000:2d:00.0" = "nvidia";        # GPU
@@ -56,8 +54,7 @@ in
       map to guest = bad user
     '';
     shares = {
-      games = createShare "/games";
-      vmshare = createShare "/server/VM";
+      vmshare = createShare "/mnt/server/VM";
     };
   };
 }

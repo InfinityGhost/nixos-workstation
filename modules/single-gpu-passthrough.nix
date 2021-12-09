@@ -13,6 +13,9 @@ let
   hookInstaller = pkgs.writers.writeBashBin "qemu-hook-installer" ''
     hookPath="${cfg.qemuHookPath}"
 
+    # Create hook directory if needed
+    mkdir -p $(dirname $hookPath)
+
     # Back up any imperative hooks
     [ -f "$hookPath" ] && [ ! -h "$hookPath" ] && mv "$hookPath" "''${hookPath}.stateful"
     

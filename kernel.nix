@@ -2,7 +2,7 @@
 
 {
   boot = {
-    kernelPackages = pkgs.linuxPackages_5_4;
+    kernelPackages = pkgs.linuxPackages_5_14;
     kernelPatches = [
       {
         name = "acso";
@@ -17,9 +17,14 @@
       options kvm report_ignored_msrs=N
     '';
     kernelParams = [
+      "nohibernate"
       "amd_iommu=on"
       "iommu=pt"
       "pcie_acs_override=downstream,multifunction"
+      "zfs.zfs_arc_max=2147483648"
     ];
+    kernel.sysctl = {
+      "vm.oom-kill" = 0;
+    };
   };
 }

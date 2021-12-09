@@ -28,6 +28,6 @@ in
     "/mnt/Archive" = mount "/dev/disk/by-label/Archive";
     "/mnt/HDD" = mount "/dev/disk/by-label/HDD";
     "/mnt/VM" = mount "/dev/disk/by-partuuid/ebf49ab0-01";
-    "/server" = mount-nfs "192.168.0.3:/export/media";
+    "/mnt/server" = mount-nfs "192.168.0.3:/export/media";
   };
 }
