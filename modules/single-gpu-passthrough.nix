@@ -5,7 +5,7 @@ with lib;
 let
   cfg = config.services.single-gpu-passthrough;
 
-  displayManagerService = 
+  displayManagerService =
     if config.services.xserver.displayManager.gdm.enable then "display-manager"
     else null;
 
@@ -18,7 +18,7 @@ let
 
     # Back up any imperative hooks
     [ -f "$hookPath" ] && [ ! -h "$hookPath" ] && mv "$hookPath" "''${hookPath}.stateful"
-    
+
     # Link declarative hook
     [ -h "$hookPath" ] && rm "$hookPath"
     ln -sf "${qemuHook}/bin/qemu" $hookPath
@@ -33,6 +33,7 @@ let
 
   attachHookCommands = builtins.concatStringsSep "\n  " (mapAttrsToList (name: value: "binddriver \"${name}\" \"${value}\"") cfg.pciDevices);
   detachHookCommands = builtins.concatStringsSep "\n  " (mapAttrsToList (name: value: "binddriver \"${name}\" \"vfio-pci\"") cfg.pciDevices);
+  mountpointStr = listToSpacedStr cfg.mountpoints;
 
   modules = lib.lists.flatten [
     (map toString cfg.extraModules)
@@ -45,6 +46,8 @@ let
 
     drivers=(${modulesStr})
     vfiodrivers=("vfio" "vfio_pci" "vfio_iommu_type1")
+
+    mountpoints=(${mountpointStr})
 
     function binddriver() {
       busid=$1
@@ -63,14 +66,14 @@ let
 
       if [ -e $driverPath ]; then
         echo "Attempting to bind $driver to $devPath"
-        
+
         # Prime for switching to a new driver
         echo $id > $driverPath/new_id
-        
+
         # Unbind from the current driver
         echo "Unbinding $devPath from its driver"
         echo $busid > $devPath/driver/unbind
-        
+
         # Bind to the new driver
         echo "Binding $devPath to $driver"
         echo $busid > $driverPath/bind
@@ -78,7 +81,7 @@ let
         # Finalize driver switch
         echo "Finalizing driver switch for $devPath"
         echo $id > $driverPath/remove_id
-        
+
         echo "$driver successfully bound to $devPath"
       else
         echo "Driver '$driver' does not exist, nothing was switched."
@@ -94,6 +97,13 @@ let
       echo 0 > /sys/class/vtconsole/vtcon0/bind
       echo 0 > /sys/class/vtconsole/vtcon1/bind
       echo efi-framebuffer.0 > /sys/bus/platform/drivers/efi-framebuffer/unbind
+
+      # Unmount disks
+      if [ ! -z "$mountpoints" ]; then
+        for mountpoint in ''${mountpoints[@]}; do
+          ${pkgs.util-linux}/bin/umount $mountpoint
+        done
+      fi
 
       # Load VFIO driver
       modprobe vfio-pci
@@ -125,6 +135,13 @@ let
     }
 
     function postattach() {
+      # Mount disks
+      if [ ! -z "$mountpoints" ]; then
+        for mountpoint in ''${mountpoints[@]}; do
+          ${pkgs.util-linux}/bin/mount $mountpoint
+        done
+      fi
+
       # Reload the framebuffer and console
       echo 1 > /sys/class/vtconsole/vtcon0/bind
       echo "efi-framebuffer.0" > /sys/bus/platform/drivers/efi-framebuffer/bind
@@ -204,6 +221,14 @@ in {
         default = [];
         description = ''
           Additional modules to be probed when returning to default state.
+        '';
+      };
+
+      mountpoints = mkOption {
+        type = with types; listOf path;
+        default = [];
+        description = ''
+          Mount points to be unmounted from the host while the guest is running.
         '';
       };
     };

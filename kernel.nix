@@ -21,10 +21,7 @@
       "amd_iommu=on"
       "iommu=pt"
       "pcie_acs_override=downstream,multifunction"
-      "zfs.zfs_arc_max=2147483648"
+      "zfs.zfs_arc_max=3758096384"
     ];
-    kernel.sysctl = {
-      "vm.oom-kill" = 0;
-    };
   };
 }

@@ -38,6 +38,9 @@ in
     extraModules = [
       "nvidiafb"
     ];
+    mountpoints = [
+      "/dev/zvol/nixpool/games-part2"
+    ];
   };
 
   services.samba = {
@@ -47,7 +50,7 @@ in
       workgroup = WORKGROUP
       server string = smb_host
       netbios name = smb_host
-      security = user 
+      security = user
       hosts allow = 192.168.122.0/24 localhost
       hosts deny = 0.0.0.0/0
       guest account = nobody

@@ -8,6 +8,18 @@ let
       "gid=100"
     ];
   };
+  mount-noauto = device: {
+    inherit device;
+    options = [
+      "nofail"
+      "noauto"
+      "user"
+      "x-systemd.automount"
+      "rw"
+      "uid=1000"
+      "gid=100"
+    ];
+  };
   mount-nfs = device: {
     inherit device;
     fsType = "nfs";
@@ -29,5 +41,6 @@ in
     "/mnt/HDD" = mount "/dev/disk/by-label/HDD";
     "/mnt/VM" = mount "/dev/disk/by-partuuid/ebf49ab0-01";
     "/mnt/server" = mount-nfs "192.168.0.3:/export/media";
+    "/mnt/Games" = mount-noauto "/dev/zvol/nixpool/games-part2";
   };
 }
