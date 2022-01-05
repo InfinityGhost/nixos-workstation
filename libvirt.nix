@@ -55,6 +55,8 @@ in
       hosts deny = 0.0.0.0/0
       guest account = nobody
       map to guest = bad user
+      server min protocol = NT1
+      client min protocol = NT1
     '';
     shares = {
       vmshare = createShare "/mnt/server/VM";

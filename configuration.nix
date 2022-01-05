@@ -42,6 +42,7 @@
     git
     manix
     htop
+    btop
     zip
     unzip
     pciutils
