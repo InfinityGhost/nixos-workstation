@@ -1,3 +1,4 @@
 builtins.map (path: import path) [
   ./mint-y-icons.nix
+  ./gnome-terminal.nix
 ]
