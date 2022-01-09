@@ -29,6 +29,7 @@
     # GNOME Software
     gnome.gnome-tweaks
     gnomeExtensions.vertical-overview
+    gnomeExtensions.ddterm
     # GTK+ Theme
     mint-y-icons
     # Internet
