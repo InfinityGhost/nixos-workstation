@@ -4,6 +4,8 @@ let
     options = [
       "nofail"
       "rw"
+      "user"
+      "x-systemd.automount"
       "uid=1000"
       "gid=100"
     ];
@@ -14,7 +16,6 @@ let
       "nofail"
       "noauto"
       "user"
-      "x-systemd.automount"
       "rw"
       "uid=1000"
       "gid=100"
@@ -25,8 +26,8 @@ let
     fsType = "nfs";
     options = [
       "nofail"
+      "user"
       "x-systemd.automount"
-      "noauto"
     ];
   };
 in
