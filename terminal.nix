@@ -4,6 +4,8 @@ let
   termcolor = "%F{12}";
 in
 {
+  users.defaultUserShell = pkgs.zsh;
+
   programs.zsh = {
     enable = true;
     shellAliases = {
@@ -44,6 +46,4 @@ in
       PROMPT='%B${termcolor}%n%f%b@%B${termcolor}%m%b %f%~''${vcs_info_msg_0_}''${NEWLINE}%f  %# '
     '';
   };
-  
-  users.defaultUserShell = pkgs.zsh;
 }

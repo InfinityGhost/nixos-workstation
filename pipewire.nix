@@ -11,7 +11,7 @@
       rate = 48000;
     };
   };
-  
+
   # make pipewire realtime-capable
   security.rtkit.enable = true;
 

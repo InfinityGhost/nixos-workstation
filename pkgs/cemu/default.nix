@@ -39,7 +39,7 @@ let
     export WINEARCH="win64"
     export WINEPREFIX="${location}/.pfx"
     export WINEDLLOVERRIDES="dbghelp=n,b"
-    
+
     CEMUDIR="${location}/${version}"
     SHARED="${location}/shared"
 
@@ -47,7 +47,7 @@ let
       [ ! -d "$CEMUDIR" ] && mkdir -p "$CEMUDIR"
       [ ! -d "$SHARED" ] && mkdir -p "$SHARED"
     }
-    
+
     createPrefix() {
       if [ ! -d $WINEPREFIX ]; then
         echo "Creating prefix..."
@@ -106,7 +106,7 @@ let
 
       local sharedTransferable="$sharedShaderCache/transferable"
       local transferable="$shaderCache/transferable"
-     
+
       if [ "$(readlink -f "$transferable")" != "$(readlink -f "$sharedTransferable")" ]; then
         echo "Linking shaderCache..."
         rm "$shaderCache"
@@ -155,7 +155,7 @@ let
       rev = version;
       sha256 = "1p4w40vad60xylj8irzxgk7p6d6j78wlphrhn875f05gpps9lqjb";
     };
-    
+
     propagatedBuildInputs = with python3Full.pkgs; [
       setuptools
       evdev

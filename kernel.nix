@@ -4,7 +4,7 @@
   boot = {
     kernelPackages = pkgs.linuxPackages_zen;
     extraModprobeConfig = ''
-      options kvm ignore_msrs=Y 
+      options kvm ignore_msrs=Y
       options kvm report_ignored_msrs=N
     '';
     kernelParams = [
