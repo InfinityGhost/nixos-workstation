@@ -50,6 +50,7 @@
     # Video
     vlc
     flowblade
+    plex-media-player
     # Office
     libreoffice
     thunderbird

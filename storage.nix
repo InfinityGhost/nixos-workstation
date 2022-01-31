@@ -5,6 +5,7 @@ let
       "nofail"
       "rw"
       "user"
+      "exec"
       "x-systemd.automount"
       "uid=1000"
       "gid=100"
@@ -16,6 +17,7 @@ let
       "nofail"
       "noauto"
       "user"
+      "exec"
       "rw"
       "uid=1000"
       "gid=100"
@@ -42,6 +44,6 @@ in
     "/mnt/HDD" = mount "/dev/disk/by-label/HDD";
     "/mnt/VM" = mount "/dev/disk/by-partuuid/ebf49ab0-01";
     "/mnt/server" = mount-nfs "192.168.0.3:/export/media";
-    "/mnt/Games" = mount-noauto "/dev/zvol/nixpool/games-part2";
+    "/mnt/Games" = mount "/dev/zvol/nixpool/games-part2";
   };
 }

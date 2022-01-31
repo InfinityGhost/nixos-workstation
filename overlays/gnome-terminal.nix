@@ -4,7 +4,7 @@ self: super: {
       patches = [
         (super.fetchurl {
           url = "https://aur.archlinux.org/cgit/aur.git/plain/transparency.patch?h=gnome-terminal-transparency";
-          sha256 = "sha256-jnxy8LrTDUorqYrNFKrZVnMcoLw1IQKfwuGFiijuEI0=";
+          sha256 = "sha256-VN0XvfrO4LfaXdsmKOrj1dK7kx7VZm+qevj9bLocXqE=";
         })
       ];
     });
