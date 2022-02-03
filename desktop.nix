@@ -29,6 +29,7 @@
     # GNOME Software
     gnome.gnome-tweaks
     gnomeExtensions.vertical-overview
+    gnomeExtensions.pop-shell
     ddterm-padded
     # GTK+ Theme
     mint-y-icons
