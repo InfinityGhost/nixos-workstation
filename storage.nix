@@ -1,6 +1,6 @@
 let
-  mount = device: {
-    inherit device;
+  mount = { device, fsType ? "auto" }: {
+    inherit device fsType;
     options = [
       "nofail"
       "rw"
@@ -11,19 +11,7 @@ let
       "gid=100"
     ];
   };
-  mount-noauto = device: {
-    inherit device;
-    options = [
-      "nofail"
-      "noauto"
-      "user"
-      "exec"
-      "rw"
-      "uid=1000"
-      "gid=100"
-    ];
-  };
-  mount-nfs = device: {
+  mount-nfs = { device }: {
     inherit device;
     fsType = "nfs";
     options = [
@@ -40,10 +28,24 @@ in
   ];
 
   fileSystems = {
-    "/mnt/Archive" = mount "/dev/disk/by-label/Archive";
-    "/mnt/HDD" = mount "/dev/disk/by-label/HDD";
-    "/mnt/VM" = mount "/dev/disk/by-partuuid/ebf49ab0-01";
-    "/mnt/server" = mount-nfs "192.168.0.3:/export/media";
-    "/mnt/Games" = mount "/dev/zvol/nixpool/games-part2";
+    "/mnt/Archive" = mount {
+      device = "/dev/disk/by-label/Archive";
+      fsType = "ntfs3";
+    };
+    "/mnt/HDD" = mount {
+      device = "/dev/disk/by-label/HDD";
+      fsType = "ntfs3";
+    };
+    "/mnt/VM" = mount {
+      device = "/dev/disk/by-partuuid/ebf49ab0-01";
+      fsType = "ntfs3";
+    };
+    "/mnt/Games" = mount {
+      device = "/dev/zvol/nixpool/games-part2";
+      fsType = "ntfs3";
+    };
+    "/mnt/server" = mount-nfs {
+      device = "192.168.0.3:/export/media";
+    };
   };
 }
