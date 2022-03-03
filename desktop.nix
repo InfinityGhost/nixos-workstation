@@ -90,4 +90,9 @@
   ];
 
   hardware.opengl.driSupport32Bit = true;
+
+  hardware.opentabletdriver = {
+    enable = true;
+    daemon.enable = true;
+  };
 }
