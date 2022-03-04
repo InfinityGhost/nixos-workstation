@@ -31,6 +31,7 @@
     gnomeExtensions.vertical-overview
     gnomeExtensions.pop-shell
     ddterm-padded
+    toggle-gnome-extension
     # GTK+ Theme
     mint-y-icons
     # Internet
