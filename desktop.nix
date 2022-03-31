@@ -25,7 +25,7 @@
     eog
   ];
 
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs; with inputs.fufexan.packages.x86_64-linux; [
     # GNOME Software
     gnome.gnome-tweaks
     gnomeExtensions.vertical-overview
@@ -62,8 +62,9 @@
     # Games
     mesa
     lutris
+    heroic
     osu-lazer
-    inputs.fufexan.packages.x86_64-linux.osu-stable
+    osu-stable
     minecraft
     minecraft-bedrock
     dolphinEmu
