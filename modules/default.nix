@@ -1,6 +1,7 @@
 {
   imports = [
-    ./minecraft-server-plugins.nix
-    ./single-gpu-passthrough.nix
+    ./remote-build
+    ./sakura
+    ./single-gpu-passthrough
   ];
 }

@@ -6,7 +6,6 @@ let
 in
 {
   networking = {
-    hostName = "nixos-workstation";
     hostId = "002199b0";
     useDHCP = false;
     interfaces.enp39s0.useDHCP = true;

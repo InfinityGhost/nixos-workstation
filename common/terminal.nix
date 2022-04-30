@@ -2,9 +2,16 @@
 
 let
   termcolor = "%F{12}";
+  termlinux = "%F{4}";
 in
 {
   users.defaultUserShell = pkgs.zsh;
+
+  i18n.defaultLocale = "en_US.UTF-8";
+  console = {
+    font = "Lat2-Terminus16";
+    keyMap = "us";
+  };
 
   programs.zsh = {
     enable = true;
@@ -36,14 +43,19 @@ in
       autoload -Uz vcs_info
 
       zstyle ':vcs_info:*' check-for-changes true
-      zstyle ':vcs_info:*' formats ' ${termcolor}[%b]'
-
+      
       function precmd() {
         vcs_info
         [ -z "''${vcs_info_msg_0_}" ] && eval vcs_info_msg_0_=' '
       }
 
-      PROMPT='%B${termcolor}%n%f%b@%B${termcolor}%m%b %f%~''${vcs_info_msg_0_}''${NEWLINE}%f  %# '
+      if [ "$TERM" = "linux" ]; then
+        zstyle ':vcs_info:*' formats ' ${termlinux}[%b]'
+        PROMPT='%B${termlinux}%n%f%b@%B${termlinux}%m%b %f%~''${vcs_info_msg_0_}''${NEWLINE}%f  %# '        
+      else
+        zstyle ':vcs_info:*' formats ' ${termcolor}[%b]'
+        PROMPT='%B${termcolor}%n%f%b@%B${termcolor}%m%b %f%~''${vcs_info_msg_0_}''${NEWLINE}%f  %# '
+      fi
     '';
   };
 }

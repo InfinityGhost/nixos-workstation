@@ -1,46 +1,31 @@
 {
   "nodes": {
-    "flake-utils": {
-      "locked": {
-        "lastModified": 1638122382,
-        "narHash": "sha256-sQzZzAbvKEqN9s0bzWuYmRaA03v40gaJ4+iL1LXjaeI=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "74f7e4319258e287b0f9cb95426c9853b282730b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
     "fufexan": {
       "inputs": {
-        "nixpkgs": "nixpkgs",
-        "utils": "utils"
+        "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1642719993,
-        "narHash": "sha256-osCgh6MHvhwS30591CEwQ15KKtRWb73xY3Y0x3ZqpxE=",
-        "owner": "fufexan",
+        "lastModified": 1650843715,
+        "narHash": "sha256-g5AJu5ctJ8KRFc6HVjfGOkE7c8nkcTywnNyKTL6viek=",
+        "owner": "InfinityGhost",
         "repo": "nix-gaming",
-        "rev": "e935a8490bd218fe48ed89737c91d33fdf82ec29",
+        "rev": "83a5fbdd43b2a3b86b52373dbb3a0fa7183b6b0f",
         "type": "github"
       },
       "original": {
-        "owner": "fufexan",
+        "owner": "InfinityGhost",
+        "ref": "update/osu-stable",
         "repo": "nix-gaming",
         "type": "github"
       }
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1642265851,
-        "narHash": "sha256-6J2paKHuQKhaBJNVf7k1NI9pqiMiAlkgt0x7obFtQ70=",
+        "lastModified": 1649978285,
+        "narHash": "sha256-QXLFVP46o5kf5tA90mQAmy+1fSnDKEcNwo+5EB95smQ=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "60dec7aa319dc620cd77ecae8ce48f5374450452",
+        "rev": "38cf4f11411b95b333719c0f4236877be68aa51a",
         "type": "github"
       },
       "original": {
@@ -69,24 +54,6 @@
       "inputs": {
         "fufexan": "fufexan",
         "nixpkgs": "nixpkgs_2"
-      }
-    },
-    "utils": {
-      "inputs": {
-        "flake-utils": "flake-utils"
-      },
-      "locked": {
-        "lastModified": 1639385028,
-        "narHash": "sha256-oqorKz3mwf7UuDJwlbCEYCB2LfcWLL0DkeCWhRIL820=",
-        "owner": "gytis-ivaskevicius",
-        "repo": "flake-utils-plus",
-        "rev": "be1be083af014720c14f3b574f57b6173b4915d0",
-        "type": "github"
-      },
-      "original": {
-        "owner": "gytis-ivaskevicius",
-        "repo": "flake-utils-plus",
-        "type": "github"
       }
     }
   },

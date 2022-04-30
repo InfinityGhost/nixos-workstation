@@ -20,7 +20,7 @@ let
     icon = "minecraft-launcher";
     comment = "Minecraft Bedrock Launcher";
     desktopName = "Minecraft Bedrock";
-    categories = "Game;";
+    categories = [ "Game" ];
   };
 
 in appimageTools.wrapType2 rec {

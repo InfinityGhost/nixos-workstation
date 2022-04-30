@@ -1,0 +1,24 @@
+diff --git a/src/sakura.c b/src/sakura.c
+index 553b728..e2f8326 100644
+--- a/src/sakura.c
++++ b/src/sakura.c
+@@ -1820,18 +1820,7 @@ sakura_init()
+ 	sakura.cfg = g_key_file_new();
+ 	sakura.config_modified=false;
+ 
+-	configdir = g_build_filename( g_get_user_config_dir(), "sakura", NULL );
+-	if ( ! g_file_test( g_get_user_config_dir(), G_FILE_TEST_EXISTS) )
+-		g_mkdir( g_get_user_config_dir(), 0755 );
+-	if ( ! g_file_test( configdir, G_FILE_TEST_EXISTS) )
+-		g_mkdir( configdir, 0755 );
+-	if (option_config_file) {
+-		sakura.configfile = g_build_filename(configdir, option_config_file, NULL);
+-	} else {
+-		/* Use more standard-conforming path for config files, if available. */
+-		sakura.configfile = g_build_filename(configdir, DEFAULT_CONFIGFILE, NULL);
+-	}
+-	g_free(configdir);
++	sakura.configfile = &"/etc/sakura/sakura.conf";
+ 
+ 	/* Open config file */
+ 	if (!g_key_file_load_from_file(sakura.cfg, sakura.configfile, 0, &gerror)) {

@@ -1,4 +1,10 @@
+{ inputs, ... }:
+
 {
+  imports = [
+    inputs.fufexan.nixosModule
+  ];
+
   services.pipewire = {
     enable = true;
     alsa.enable = true;

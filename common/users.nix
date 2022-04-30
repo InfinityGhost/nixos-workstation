@@ -18,10 +18,10 @@ in
       "wheel"
       "libvirtd"
       "networkmanager"
+      "users"
     ];
     packages = with pkgs; [
       neofetch
-      dotnet-sdk
       nix-direnv-init
     ];
     openssh.authorizedKeys.keys = [

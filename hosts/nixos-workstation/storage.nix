@@ -22,11 +22,6 @@ let
   };
 in
 {
-  boot.supportedFilesystems = [
-    "ext4"
-    "ntfs"
-  ];
-
   fileSystems = {
     "/mnt/Archive" = mount {
       device = "/dev/disk/by-label/Archive";

@@ -142,7 +142,7 @@ let
     inherit icon;
     comment = "Closed-source Wii U Emulator";
     desktopName = "Cemu";
-    categories = "Game;";
+    categories = [ "Game" ];
   };
 
   ds4drv-cemuhook = python3Full.pkgs.buildPythonPackage rec {
