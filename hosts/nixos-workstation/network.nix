@@ -10,6 +10,7 @@ in
     useDHCP = false;
     interfaces.enp39s0.useDHCP = true;
     firewall.enable = false;
+    nameservers = [ "1.1.1.1" "1.0.0.1" ];
   };
 
   services.openvpn.servers = {

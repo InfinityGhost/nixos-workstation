@@ -2,7 +2,7 @@
 
 {
   imports = [
-    inputs.fufexan.nixosModule
+    inputs.fufexan.nixosModules.pipewireLowLatency
   ];
 
   services.pipewire = {

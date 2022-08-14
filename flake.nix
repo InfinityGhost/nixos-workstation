@@ -1,7 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    fufexan.url = "github:InfinityGhost/nix-gaming/update/osu-stable";
+    fufexan.url = "github:fufexan/nix-gaming";
   };
 
   outputs = { self, nixpkgs, ... } @ inputs: with nixpkgs.lib; let

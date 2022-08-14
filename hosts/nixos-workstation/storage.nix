@@ -6,6 +6,7 @@ let
       "rw"
       "user"
       "exec"
+      "force"
       "x-systemd.automount"
       "uid=1000"
       "gid=100"
@@ -38,9 +39,6 @@ in
     "/mnt/Games" = mount {
       device = "/dev/zvol/nixpool/games-part2";
       fsType = "ntfs3";
-    };
-    "/mnt/server" = mount-nfs {
-      device = "192.168.0.3:/export/media";
     };
   };
 }

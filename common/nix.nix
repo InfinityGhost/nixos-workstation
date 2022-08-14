@@ -3,7 +3,7 @@
 {
   nix = {
     distributedBuilds = true;
-    trustedUsers = [
+    settings.trusted-users = [
       "infinity"
       "@root"
     ];
