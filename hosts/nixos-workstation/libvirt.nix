@@ -12,10 +12,12 @@ let
     "force user" = "infinity";
     "force group" = "users";
   };
+
 in
 {
-  virtualisation.libvirtd = {
-    enable = true;
+  virtualisation = {
+    libvirtd.enable = true;
+    spiceUSBRedirection.enable = true;
   };
 
   systemd.services."libvirtd" = {

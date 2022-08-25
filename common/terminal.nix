@@ -18,6 +18,7 @@ in
     shellAliases = {
       ls = "ls --color=auto";
       ll = "ls -l";
+      cdr = "cd $(git rev-parse --show-toplevel)";
     };
     histSize = 10000;
     interactiveShellInit = ''

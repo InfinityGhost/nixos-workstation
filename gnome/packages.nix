@@ -12,7 +12,7 @@
     cinnamon.nemo
     uget
     # Audio
-    spotify
+    spot
     # Photos
     gthumb
     gimp
