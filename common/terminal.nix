@@ -44,7 +44,7 @@ in
       autoload -Uz vcs_info
 
       zstyle ':vcs_info:*' check-for-changes true
-      
+
       function precmd() {
         vcs_info
         [ -z "''${vcs_info_msg_0_}" ] && eval vcs_info_msg_0_=' '
@@ -52,7 +52,7 @@ in
 
       if [ "$TERM" = "linux" ]; then
         zstyle ':vcs_info:*' formats ' ${termlinux}[%b]'
-        PROMPT='%B${termlinux}%n%f%b@%B${termlinux}%m%b %f%~''${vcs_info_msg_0_}''${NEWLINE}%f  %# '        
+        PROMPT='%B${termlinux}%n%f%b@%B${termlinux}%m%b %f%~''${vcs_info_msg_0_}''${NEWLINE}%f  %# '
       else
         zstyle ':vcs_info:*' formats ' ${termcolor}[%b]'
         PROMPT='%B${termcolor}%n%f%b@%B${termcolor}%m%b %f%~''${vcs_info_msg_0_}''${NEWLINE}%f  %# '
