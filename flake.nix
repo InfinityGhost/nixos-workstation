@@ -1,32 +1,46 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    fufexan.url = "github:fufexan/nix-gaming";
+    nixos.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nix-gaming.url = "github:fufexan/nix-gaming";
+    home-manager = {
+      url = "github:rycee/home-manager";
+      inputs.nixpkgs.follows = "nixos";
+    };
   };
 
-  outputs = { self, nixpkgs, ... } @ inputs: with nixpkgs.lib; let
-    mkSystem = { hostName, system ? "x86_64-linux", modules ? [], ... }: nixosSystem {
-      inherit system;
-      modules = [
-        ./common
-        ./modules
-        (./. + "/hosts/${hostName}")
-        ({ networking.hostName = hostName; })
-      ] ++ modules;
-      specialArgs = {
-        inherit inputs hostName;
-      };
-    };
+  outputs = inputs @ { self, nixos, home-manager, ... }: let
+    inherit (builtins) baseNameOf;
+    inherit (lib) nixosSystem mkIf removeSuffix attrNames attrValues;
+    inherit (lib.my) dotFilesDir mapModules mapModulesRec mapHosts;
 
-    # Builds multiple NixOS configurations from a set, using the pair name as the system hostname.
-    nixosSystems = systems: mapAttrs (name: value: mkSystem ({ hostName = name; } // value)) systems;
+    system = "x86_64-linux";
+
+    lib = nixos.lib.extend
+      (self: super: { my = import ./lib { inherit pkgs inputs; lib = self; }; });
+
+    mkPkgs = pkgs: extraOverlays: import pkgs {
+      inherit system;
+      config.allowUnfree = true;
+      overlays = extraOverlays ++ (attrValues self.overlays);
+    };
+    pkgs = mkPkgs nixos [ self.overlay ];
 
   in {
-    nixosConfigurations = nixosSystems {
-      nixos-workstation = { modules = [ ./gnome ./development ]; };
-      nixos-laptop = { modules = [ ./sway ]; system = "i686-linux"; };
-      nixos-iso = {};
-      nixos-iso-x86 = { hostName = "nixos-iso"; system = "i686-linux"; };
+    lib = lib.my;
+
+    overlay = final: prev: {
+      user = self.packages."${system}";
+      nix-gaming = inputs.nix-gaming.packages."${system}";
     };
+
+    overlays = mapModules ./overlays import;
+
+    packages."${system}" = mapModules ./pkgs (p: pkgs.callPackage p {});
+
+    nixosModules = { dotfiles = import ./.; } // mapModulesRec ./modules import;
+
+    nixosConfigurations = mapHosts ./hosts { inherit system; };
+
+    devShell."${system}" = import ./shell.nix { inherit pkgs; };
   };
 }

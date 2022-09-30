@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 
 let
   termcolor = "%F{12}";
@@ -25,11 +25,9 @@ in
       # Inject direnv
       eval "$(direnv hook zsh)" > /dev/null
 
-      # Aliases
       [ -f ~/.aliases ] && source ~/.aliases
 
-      # Local bin directory
-      export PATH=$PATH:~/.local/bin
+      export PATH=${lib.my.binDir}:$PATH
     '';
     setOptions = [
       "HIST_IGNORE_DUPS"

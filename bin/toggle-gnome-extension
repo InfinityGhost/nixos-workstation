@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+bin=gnome-extensions
+if [ ! -z "$1" ]; then
+  [ $($bin list --enabled | grep $1) ] && $bin disable $1 || $bin enable $1
+else
+  echo "No extension specified."
+  $bin list
+fi

@@ -3,7 +3,6 @@
 {
   imports = [
     ./nano.nix
-    ./nix.nix
     ./packages.nix
     ./printing.nix
     ./terminal.nix
