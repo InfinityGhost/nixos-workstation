@@ -15,6 +15,11 @@ rec {
 
   # Filesystem mount helpers
   mount = {
+    zfs = device: {
+      inherit device;
+      fsType = "zfs";
+    };
+
     ntfs = device: {
       inherit device;
       fsType = "ntfs3";
