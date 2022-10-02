@@ -1,11 +1,11 @@
-{ lib, inputs, pkgs, ... }:
+{ lib, inputs, pkgs, config, ... }:
 
 with lib;
 with lib.my;
 {
-  imports = [
-    inputs.home-manager.nixosModules.home-manager
-  ] ++ (mapModulesRec' (toString ./modules ) import);
+  imports = [ inputs.home-manager.nixosModules.home-manager ]
+    ++ (mapModulesRec' (toString ./modules ) import)
+    ++ (mapModules' (toString ./users) import);
 
   nix = {
     distributedBuilds = true;
@@ -32,6 +32,30 @@ with lib.my;
     registry = {
       nixos.flake = inputs.nixos;
       nixpkgs.flake = inputs.nixos;
+      nix-gaming.flake = inputs.nix-gaming;
     };
   };
+
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    extraSpecialArgs = {
+      inherit inputs;
+      nixosConfig = config;
+    };
+  };
+
+  time.timeZone = "America/New_York";
+
+  programs.mtr.enable = true;
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+  };
+
+  users.mutableUsers = false;
+
+  services.openssh.enable = true;
+
+  system.stateVersion = "22.05";
 }

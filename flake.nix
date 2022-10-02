@@ -3,7 +3,7 @@
     nixos.url = "github:NixOS/nixpkgs/nixos-unstable";
     nix-gaming.url = "github:fufexan/nix-gaming";
     home-manager = {
-      url = "github:rycee/home-manager";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixos";
     };
   };
@@ -37,7 +37,7 @@
 
     packages."${system}" = mapModules ./pkgs (p: pkgs.callPackage p {});
 
-    nixosModules = { dotfiles = import ./.; } // mapModulesRec ./modules import;
+    nixosModules = { dotfiles = import ./.; } // mapModulesRec ./modules/system import;
 
     nixosConfigurations = mapHosts ./hosts { inherit system; };
 

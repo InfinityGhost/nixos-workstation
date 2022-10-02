@@ -1,44 +1,20 @@
-let
-  mount = { device, fsType ? "auto" }: {
-    inherit device fsType;
-    options = [
-      "nofail"
-      "rw"
-      "user"
-      "exec"
-      "force"
-      "x-systemd.automount"
-      "uid=1000"
-      "gid=100"
-    ];
-  };
-  mount-nfs = { device }: {
-    inherit device;
-    fsType = "nfs";
-    options = [
-      "nofail"
-      "user"
-      "x-systemd.automount"
-    ];
-  };
-in
+{ lib, ... }:
+
+with lib.my.mount;
+
 {
   fileSystems = {
-    "/mnt/Archive" = mount {
-      device = "/dev/disk/by-label/Archive";
-      fsType = "ntfs3";
+    "/" = zfs "nixpool/root";
+    "/nix" = zfs "nixpool/nix";
+    "/home" = zfs "nixpool/home";
+    "/repos" = zfs "nixpool/repos";
+    "/boot" = {
+      device = "/dev/disk/by-uuid/7561-A493";
+      fsType = "vfat";
     };
-    "/mnt/HDD" = mount {
-      device = "/dev/disk/by-label/HDD";
-      fsType = "ntfs3";
-    };
-    "/mnt/VM" = mount {
-      device = "/dev/disk/by-partuuid/ebf49ab0-01";
-      fsType = "ntfs3";
-    };
-    "/mnt/Games" = mount {
-      device = "/dev/zvol/nixpool/games-part2";
-      fsType = "ntfs3";
-    };
+    "/mnt/Archive" = ntfs "/dev/disk/by-label/Archive";
+    "/mnt/HDD" = ntfs "/dev/disk/by-label/HDD";
+    "/mnt/VM" = ntfs "/dev/disk/by-partuuid/ebf49ab0-01";
+    "/mnt/Games" = ntfs "/dev/zvol/nixpool/games-part2";
   };
 }
