@@ -3,9 +3,9 @@
 with lib;
 with lib.my;
 {
-  imports = [
-    inputs.home-manager.nixosModules.home-manager
-  ] ++ (mapModulesRec' (toString ./modules ) import);
+  imports = (mapModulesRec' (toString ./modules ) import)
+    ++ (mapModulesRec' (toString ./users) import)
+    ++ [ inputs.home-manager.nixosModules.home-manager ];
 
   nix = {
     distributedBuilds = true;
@@ -32,6 +32,7 @@ with lib.my;
     registry = {
       nixos.flake = inputs.nixos;
       nixpkgs.flake = inputs.nixos;
+      nix-gaming.flake = inputs.nix-gaming;
     };
   };
 }

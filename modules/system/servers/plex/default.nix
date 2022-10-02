@@ -1,10 +1,10 @@
 { lib, config, pkgs, ... }:
 
 let
-  cfg = config.server.plex;
+  cfg = config.servers.plex;
 in
 {
-  options.server.plex = with lib; {
+  options.servers.plex = with lib; {
     enable = mkEnableOption "Plex Media Server";
   };
 

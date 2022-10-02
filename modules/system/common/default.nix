@@ -6,7 +6,6 @@
     ./packages.nix
     ./printing.nix
     ./terminal.nix
-    ./users.nix
   ];
 
   time.timeZone = "America/New_York";
@@ -16,6 +15,9 @@
     enable = true;
     enableSSHSupport = true;
   };
+
+  # Make users immutable, passwords must be set
+  users.mutableUsers = false;
 
   services.openssh.enable = true;
 
