@@ -1,11 +1,11 @@
-{ lib, inputs, pkgs, ... }:
+{ lib, inputs, pkgs, config, ... }:
 
 with lib;
 with lib.my;
 {
-  imports = (mapModulesRec' (toString ./modules ) import)
-    ++ (mapModulesRec' (toString ./users) import)
-    ++ [ inputs.home-manager.nixosModules.home-manager ];
+  imports = [ inputs.home-manager.nixosModules.home-manager ]
+    ++ (mapModulesRec' (toString ./modules ) import)
+    ++ (mapModules' (toString ./users) import);
 
   nix = {
     distributedBuilds = true;
@@ -33,6 +33,15 @@ with lib.my;
       nixos.flake = inputs.nixos;
       nixpkgs.flake = inputs.nixos;
       nix-gaming.flake = inputs.nix-gaming;
+    };
+  };
+
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    extraSpecialArgs = {
+      inherit inputs;
+      nixosConfig = config;
     };
   };
 }

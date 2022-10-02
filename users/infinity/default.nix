@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ lib, pkgs, config, home-manager, ... }:
 
 with lib.my;
 
@@ -15,4 +15,6 @@ with lib.my;
     ];
     openssh.authorizedKeys.keys = map builtins.readFile (listFiles ./ssh);
   };
+
+  home-manager.users.infinity = import ./home.nix;
 }
