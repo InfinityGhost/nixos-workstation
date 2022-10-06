@@ -26,7 +26,7 @@
     pkgs = mkPkgs nixos [ self.overlay ];
 
   in {
-    lib = lib.my;
+    lib = lib;
 
     overlay = final: prev: {
       user = self.packages."${system}";

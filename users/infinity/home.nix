@@ -1,5 +1,18 @@
-{ pkgs, nixosConfig, ... }:
+{ pkgs, lib, config, nixosConfig, ... }:
 
 {
-  home.stateVersion = nixosConfig.system.stateVersion;
+  programs.steam = {
+    immutable = true;
+    libraryFolders = {
+      Root = {
+        path = "${config.home.homeDirectory}/.local/share/Steam";
+      };
+      Linux = {
+        path = "/mnt/Games/SteamLibraryLinux";
+      };
+      Windows = {
+        path = "/mnt/Games/SteamLibrary";
+      };
+    };
+  };
 }

@@ -2,9 +2,10 @@
 
 with lib;
 with lib.my;
+
 {
   imports = [ inputs.home-manager.nixosModules.home-manager ]
-    ++ (mapModulesRec' (toString ./modules ) import)
+    ++ (mapModulesRec' (toString ./modules/system ) import)
     ++ (mapModules' (toString ./users) import);
 
   nix = {
@@ -39,10 +40,9 @@ with lib.my;
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    extraSpecialArgs = {
-      inherit inputs;
-      nixosConfig = config;
-    };
+    sharedModules = [ { home.stateVersion = config.system.stateVersion; } ]
+      ++ mapModulesRec' (toString ./modules/home) import;
+    extraSpecialArgs = { inherit inputs; };
   };
 
   time.timeZone = "America/New_York";
