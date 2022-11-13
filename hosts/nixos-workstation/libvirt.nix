@@ -26,11 +26,17 @@ in
     ];
   };
 
+  desktop.vm = {
+    enable = true;
+    machines = {
+      win11-vfio = {
+        desktopName = "Windows 11";
+      };
+    };
+  };
+
   services.single-gpu-passthrough = {
     enable = true;
-    machines = [
-      "win11-vfio"
-    ];
     pciDevices = {
       "0000:2d:00.0" = "nvidia";        # GPU
       "0000:2d:00.1" = "snd_hda_intel"; # GPU Audio
