@@ -12,10 +12,24 @@
     ./udev.nix
   ];
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+  };
 
-  desktop.gnome.enable = true;
-  desktop.games.enable = true;
-  development.dotnet.enable = true;
+  desktop = {
+    gnome.enable = true;
+    apps = {
+      common = true;
+      entertainment = true;
+      office = true;
+      creative = true;
+      games = true;
+      virtualization = true;
+      development = true;
+      misc = true;
+    };
+  };
+
+  servers.plex.enable = true;
 }

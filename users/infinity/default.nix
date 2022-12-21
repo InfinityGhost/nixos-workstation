@@ -12,6 +12,7 @@ with lib.my;
       "libvirtd"
       "networkmanager"
       "users"
+      "deluge"
     ];
     openssh.authorizedKeys.keys = map builtins.readFile (listFiles ./ssh);
   };

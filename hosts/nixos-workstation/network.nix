@@ -1,9 +1,3 @@
-let
-  mkVPN = name: {
-    config = "config /var/lib/openvpn/${name}/${name}.ovpn";
-    autoStart = false;
-  };
-in
 {
   networking = {
     hostId = "002199b0";
@@ -13,7 +7,10 @@ in
     nameservers = [ "1.1.1.1" "1.0.0.1" ];
   };
 
-  services.openvpn.servers = {
-    mullvad = mkVPN "mullvad";
+  services.vpn.servers.mullvad = {};
+
+  services.deluge-vpn = {
+    enable = true;
+    vpns = [ "mullvad" ];
   };
 }

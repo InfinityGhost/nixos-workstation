@@ -12,6 +12,5 @@
     pciutils
     usbutils
     mkpasswd
-    direnv
   ];
 }

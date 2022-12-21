@@ -29,9 +29,8 @@ in
   desktop.vm = {
     enable = true;
     machines = {
-      win11-vfio = {
-        desktopName = "Windows 11";
-      };
+      win-vfio.desktopName = "Windows";
+      macos-vfio.desktopName = "macOS";
     };
   };
 
@@ -67,7 +66,7 @@ in
       client min protocol = NT1
     '';
     shares = {
-      vmshare = createShare "/mnt/server/VM";
+      vm = createShare "/mnt/Archive/VM";
     };
   };
 }
