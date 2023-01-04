@@ -235,6 +235,8 @@ in {
   };
 
   config = mkIf cfg.enable {
+    systemd.services.libvirtd.path = [ pkgs.kmod ];
+
     systemd.services.single-gpu-passthrough = {
       description = "Single GPU passthrough helper service";
       wantedBy = [ "multi-user.target" ];
