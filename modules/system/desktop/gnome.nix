@@ -41,10 +41,9 @@ in
       # GTK+ Theme
       mint-y-icons
       # Internet
-      firefox
-      google-chrome
-      discord
-      transmission-gtk
+      unstable.firefox
+      unstable.google-chrome
+      unstable.discord
       gnome-feeds
       # File Management
       cinnamon.nemo

@@ -1,6 +1,7 @@
 {
   inputs = {
-    nixos.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixos.url = "github:NixOS/nixpkgs/nixos-22.11";
+    nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nix-gaming.url = "github:fufexan/nix-gaming";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -8,7 +9,7 @@
     };
   };
 
-  outputs = inputs @ { self, nixos, home-manager, ... }: let
+  outputs = inputs @ { self, nixos, nixos-unstable, home-manager, ... }: let
     inherit (builtins) baseNameOf;
     inherit (lib) nixosSystem mkIf removeSuffix attrNames attrValues;
     inherit (lib.my) dotFilesDir mapModules mapModulesRec mapHosts;
@@ -24,13 +25,15 @@
       overlays = extraOverlays ++ (attrValues self.overlays);
     };
     pkgs = mkPkgs nixos [ self.overlay ];
+    pkgsUnstable = mkPkgs nixos-unstable [];
 
   in {
-    lib = lib;
+    inherit lib pkgs;
 
     overlay = final: prev: {
-      user = self.packages."${system}";
-      nix-gaming = inputs.nix-gaming.packages."${system}";
+      user = self.packages.${system};
+      unstable = pkgsUnstable;
+      nix-gaming = inputs.nix-gaming.packages.${system};
     };
 
     overlays = mapModules ./overlays import;

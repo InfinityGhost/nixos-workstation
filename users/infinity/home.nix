@@ -8,11 +8,13 @@
         path = "${config.home.homeDirectory}/.local/share/Steam";
       };
       Linux = {
-        path = "/mnt/Games/SteamLibraryLinux";
+        path = "/mnt/Games/SteamLibrary";
       };
       Windows = {
-        path = "/mnt/Games/SteamLibrary";
+        path = "/mnt/Games/Windows/SteamLibrary";
       };
     };
   };
+
+  programs.direnv.enable = true;
 }

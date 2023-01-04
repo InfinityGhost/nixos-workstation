@@ -12,9 +12,13 @@ with lib.my;
       "libvirtd"
       "networkmanager"
       "users"
+      "deluge"
+      "media"
     ];
     openssh.authorizedKeys.keys = map builtins.readFile (listFiles ./ssh);
   };
+
+  users.groups.media = {};
 
   home-manager.users.infinity = import ./home.nix;
 }

@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ./containers.nix
     ./hardware-configuration.nix
     ./kernel.nix
     ./libvirt.nix
@@ -18,4 +17,10 @@
   desktop.gnome.enable = true;
   desktop.games.enable = true;
   development.dotnet.enable = true;
+  servers.plex.enable = true;
+
+  services.containers = {
+    ubuntu.enable = true;
+    fedora.enable = true;
+  };
 }

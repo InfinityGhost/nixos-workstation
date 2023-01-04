@@ -50,6 +50,22 @@
       },
       "original": {
         "owner": "NixOS",
+        "ref": "nixos-22.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixos-unstable": {
+      "locked": {
+        "lastModified": 1672525397,
+        "narHash": "sha256-WASDnyxHKWVrEe0dIzkpH+jzKlCKAk0husv0f/9pyxg=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "8ba56d7c0d7490680f2d51ba46a141eca7c46afa",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
         "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
@@ -75,7 +91,8 @@
       "inputs": {
         "home-manager": "home-manager",
         "nix-gaming": "nix-gaming",
-        "nixos": "nixos"
+        "nixos": "nixos",
+        "nixos-unstable": "nixos-unstable"
       }
     },
     "utils": {

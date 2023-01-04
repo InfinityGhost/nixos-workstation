@@ -1,6 +1,6 @@
 let
-  version = "0.0.21";
-  sha256 = "sha256-KDKUssPRrs/D10s5GhJ23hctatQmyqd27xS9nU7iNaM=";
+  version = "0.0.22";
+  sha256 = "sha256-F1xzdx4Em6Ref7HTe9EH7whx49iFc0DFpaQKdFquq6c=";
 in self: super: {
   discord = super.discord.overrideAttrs (old: {
     src = super.fetchurl {
