@@ -20,15 +20,15 @@ let
     execConfig = {
       Timezone = "Bind";
       Hostname = "${name}-container";
+      Capability = [ "CAP_NET_ADMIN" ];
     };
     filesConfig = {
       Bind = [ "/repos" ];
       Volatile = false;
     };
     networkConfig = {
-      Private = true;
-      VirtualEthernet = true;
-      Bridge = "virbr0";
+      Private = false;
+      VirtualEthernet = false;
     };
   } // attrs) [ "name" ];
 
