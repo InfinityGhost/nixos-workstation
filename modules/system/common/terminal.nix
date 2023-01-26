@@ -8,8 +8,9 @@ in
   users.defaultUserShell = pkgs.zsh;
 
   fonts.fonts = with pkgs; [
-    terminus_font_ttf
     terminus_font
+    terminus_font_ttf
+    ubuntu_font_family
   ];
 
   i18n.defaultLocale = "en_US.UTF-8";
@@ -24,6 +25,13 @@ in
       ls = "ls --color=auto";
       ll = "ls -l";
       cdr = "cd $(git rev-parse --show-toplevel)";
+      grep  = "grep --color=auto";
+      tohex = "od -An -tx1";
+      clip = "xclip -selection clipboard";
+      tb = "nc termbin.com 9999";
+      tbc = "tb | clip";
+      fp = "git fetch -p --all";
+      virsh = "virsh --connect=qemu:///system";
     };
     histSize = 10000;
     interactiveShellInit = ''

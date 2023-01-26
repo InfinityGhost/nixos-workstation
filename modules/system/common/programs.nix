@@ -14,4 +14,10 @@
     mkpasswd
     direnv
   ];
+
+  programs.nano.nanorc = ''
+    set autoindent
+    set tabstospaces
+    set tabsize 2
+  '';
 }
