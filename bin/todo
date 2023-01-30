@@ -6,12 +6,12 @@ new_date=$([ "$1" = "tomorrow" ] && date -d +1day +%F || date +%F)
 ins="# ${new_date}\n- [ ] \n"
 
 if [ ! -f $file ]; then
-  echo "$ins" > $file
+  echo "$ins" > "$file"
 else
   then=$([ -f $file ] && date -d $(head -n 1 $file | cut -c 3-) +%s || echo 0)
   now=$(date -d $new_date +%s)
 
-  [ $then -lt $now ] && sed -i "1i${ins}" $file
+  [ $then -lt $now ] && sed -i "1i${ins}" "$file"
 fi
 
 ${EDITOR:-nano} "$file"

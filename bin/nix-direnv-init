@@ -1,15 +1,11 @@
 #!/usr/bin/env bash
 
-function check-file()
-{
-  if [ -e "$1" ]; then
-    echo "Aborting: The file '$1' already exists."
-    exit 1;
+for file in "shell.nix" ".envrc"; do
+  if [ -e "$file" ]; then
+    echo "Aborting: '$file' already exists, not creating files."
+    exit
   fi
-}
-
-check-file "shell.nix"
-check-file ".envrc"
+done
 
 echo "Creating nix direnv files..."
 

@@ -19,5 +19,6 @@
     set autoindent
     set tabstospaces
     set tabsize 2
+    bind ^Z suspend main
   '';
 }
