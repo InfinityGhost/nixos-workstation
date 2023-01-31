@@ -12,6 +12,13 @@
         prefixLength = 24;
       }
     ];
+
+    # workaround for nixpkgs#60900
+    dhcpcd.extraConfig = ''
+      timeout 1
+      noarp
+      nodelay
+    '';
   };
 
   services.vpn.servers.mullvad = {};

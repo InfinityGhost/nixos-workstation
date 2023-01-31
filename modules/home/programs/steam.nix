@@ -22,7 +22,7 @@ let
   vdfList = list: (vdfAttr (numberedList list));
 
   libraryFoldersVdf = attrs: vdfPair "libraryfolders" (numberedList
-    (map (n: (name: value: value // { label = name; }) n attrs.${n})
+    (map (n: (name: value: { label = name; path = value; }) n attrs.${n})
       (builtins.attrNames attrs)));
 
   path = "${config.home.homeDirectory}/.steam/root/steamapps/libraryfolders.vdf";
@@ -30,26 +30,13 @@ let
   cfg = config.programs.steam;
 
 in {
-  options.programs.steam = {
-    immutable = mkOption {
-      type = types.bool;
-      default = false;
-      description = ''
-        Whether to enable immutable configuration.
-      '';
-    };
-
-    libraryFolders = mkOption {
-      type = types.attrs;
-      default = {};
-      description = ''
-        Attribute set of all steam library folders
-        The name will be set as the label
-      '';
-    };
+  options.programs.steam.libraryFolders = mkOption {
+    description = "Attribute set of all steam library folders";
+    type = with types; attrsOf str;
+    default = {};
   };
 
-  config = lib.mkIf cfg.immutable {
+  config = mkIf (cfg.libraryFolders != {}) {
     home.file.${path} = {
       text = libraryFoldersVdf cfg.libraryFolders;
       force = true;
