@@ -51,23 +51,23 @@ in
     promptInit = ''
       NEWLINE=''$'\n'
 
-      # vcs_info Configuration
-      autoload -Uz vcs_info
+      case $TERM in
+        linux) zsh_color='%F{4}';;
+        *) zsh_color='%F{12}';;
+      esac
 
+      autoload -Uz vcs_info
       zstyle ':vcs_info:*' check-for-changes true
+      zstyle ':vcs_info:*' formats '%c%u%~@%b'
+      zstyle ':vcs_info:*' unstagedstr '%F{9}'
+      zstyle ':vcs_info:*' stagedstr '%F{10}'
 
       function precmd() {
         vcs_info
-        [ -z "''${vcs_info_msg_0_}" ] && eval vcs_info_msg_0_=' '
+        zsh_info="''${vcs_info_msg_0_:-%~}"
       }
 
-      if [ "$TERM" = "linux" ]; then
-        zstyle ':vcs_info:*' formats ' ${termlinux}[%b]'
-        PROMPT='%B${termlinux}%n%f%b@%B${termlinux}%m%b %f%~''${vcs_info_msg_0_}''${NEWLINE}%f  %# '
-      else
-        zstyle ':vcs_info:*' formats ' ${termcolor}[%b]'
-        PROMPT='%B${termcolor}%n%f%b@%B${termcolor}%m%b %f%~''${vcs_info_msg_0_}''${NEWLINE}%f  %# '
-      fi
+      PROMPT='%B''${zsh_color}%n%f%b@%B''${zsh_color}%m%b%f ''${zsh_info}%f''${NEWLINE}  %# '
 
       add-path() {
         target_path=$(realpath "$@")
