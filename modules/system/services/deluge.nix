@@ -15,8 +15,8 @@ in
   config = lib.mkIf (cfg.vpns != []) {
     systemd.services.deluged = {
       bindsTo = services;
-      requires = services;
       after = services;
+      wantedBy = lib.mkForce [];
     };
 
     environment.systemPackages = with pkgs; [
