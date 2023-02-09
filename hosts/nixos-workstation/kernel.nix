@@ -12,7 +12,7 @@
       "amd_iommu=on"
       "iommu=pt"
       "pcie_acs_override=downstream,multifunction"
-      "zfs.zfs_arc_max=3758096384"
+      "zfs.zfs_arc_max=17179869184"
     ];
   };
 }

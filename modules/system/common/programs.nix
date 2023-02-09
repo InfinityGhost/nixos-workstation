@@ -5,6 +5,7 @@
     wget
     git
     manix
+    bat
     htop
     btop
     zip
@@ -13,6 +14,7 @@
     usbutils
     mkpasswd
     direnv
+    screen
   ];
 
   programs.nano.nanorc = ''
