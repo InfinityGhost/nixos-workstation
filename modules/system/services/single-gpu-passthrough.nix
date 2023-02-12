@@ -5,27 +5,6 @@ with lib;
 let
   cfg = config.services.single-gpu-passthrough;
 
-  displayManagerService =
-    if config.services.xserver.displayManager.gdm.enable then "display-manager"
-    else null;
-
-  # Invoked every time the helper service starts to enforce the driver hook
-  hookInstaller = pkgs.writers.writeBashBin "qemu-hook-installer" ''
-    hookPath="${cfg.qemuHookPath}"
-
-    # Create hook directory if needed
-    mkdir -p $(dirname $hookPath)
-
-    # Back up any imperative hooks
-    [ -f "$hookPath" ] && [ ! -h "$hookPath" ] && mv "$hookPath" "''${hookPath}.stateful"
-
-    # Link declarative hook
-    [ -h "$hookPath" ] && rm "$hookPath"
-    ln -sf "${qemuHook}/bin/qemu" $hookPath
-
-    exit 0
-  '';
-
   encapsulateStr = value: "\"${value}\"";
   listToSpacedStr = list: builtins.concatStringsSep " " (map encapsulateStr list);
 
@@ -33,7 +12,7 @@ let
 
   attachHookCommands = builtins.concatStringsSep "\n  " (mapAttrsToList (name: value: "binddriver \"${name}\" \"${value}\"") cfg.pciDevices);
   detachHookCommands = builtins.concatStringsSep "\n  " (mapAttrsToList (name: value: "binddriver \"${name}\" \"vfio-pci\"") cfg.pciDevices);
-  mountpointStr = listToSpacedStr cfg.mountpoints;
+  mountPointStr = listToSpacedStr cfg.mountpoints;
 
   modules = lib.lists.flatten [
     (map toString cfg.extraModules)
@@ -41,14 +20,17 @@ let
   ];
   modulesStr = listToSpacedStr (lib.lists.unique modules);
 
+  hookInstaller = pkgs.writers.writeBashBin "installer" ''
+    hookPath="/var/lib/libvirt/hooks/qemu"
+    mkdir -p $(dirname $hookPath)
+
+    [ -f "$hookPath" ] && mv "$hookPath" "''${hookPath}.stateful"
+    ln -svf "${qemuHook}/bin/qemu" "$hookPath"
+
+    exit 0
+  '';
+
   qemuHook = pkgs.writers.writeBashBin "qemu" ''
-    displaymanager="${displayManagerService}"
-
-    drivers=(${modulesStr})
-    vfiodrivers=("vfio" "vfio_pci" "vfio_iommu_type1")
-
-    mountpoints=(${mountpointStr})
-
     function binddriver() {
       busid=$1
       driver=$2
@@ -88,9 +70,8 @@ let
       fi
     }
 
-    function predetach() {
-      # Kill Display Manager
-      systemctl stop $displaymanager
+    function detach() {
+      systemctl stop display-manager
       sleep 1
 
       # Kill the console
@@ -98,65 +79,42 @@ let
       echo 0 > /sys/class/vtconsole/vtcon1/bind
       echo efi-framebuffer.0 > /sys/bus/platform/drivers/efi-framebuffer/unbind
 
-      # Unmount disks
-      if [ ! -z "$mountpoints" ]; then
-        for mountpoint in ''${mountpoints[@]}; do
-          ${pkgs.util-linux}/bin/umount $mountpoint
-        done
-      fi
+      for mountpoint in ${mountPointStr}; do
+        umount $mountpoint
+      done
 
-      # Load VFIO driver
       modprobe vfio-pci
-    }
 
-    function detach() {
-      predetach
       ${detachHookCommands}
     }
 
-    function preattach() {
+    function attach() {
       # Unload VFIO drivers
-      for driver in ''${vfiodrivers[@]}; do
+      for driver in "vfio" "vfio_pci" "vfio_iommu_type1"; do
         rmmod $driver
       done;
 
-      # Load normal drivers
-      for driver in ''${drivers[@]}; do
+      for driver in ${modulesStr}; do
         modprobe $driver
-      done;
-    }
+      done
 
-    function attach() {
-      # Do everything before attaching
-      preattach
       ${attachHookCommands}
-      # Do everything needed after attaching drivers
-      postattach
-    }
 
-    function postattach() {
-      # Mount disks
-      if [ ! -z "$mountpoints" ]; then
-        for mountpoint in ''${mountpoints[@]}; do
-          ${pkgs.util-linux}/bin/mount $mountpoint
-        done
-      fi
+      for mountpoint in ${mountPointStr}; do
+        mount $mountpoint
+      done
 
       # Reload the framebuffer and console
       echo 1 > /sys/class/vtconsole/vtcon0/bind
       echo "efi-framebuffer.0" > /sys/bus/platform/drivers/efi-framebuffer/bind
 
-      # Reload the Display Manager
-      systemctl start $displaymanager
+      systemctl start display-manager
     }
 
-    BASEDIR="$(dirname $0)"
     GUEST_NAME="$1"
     HOOK_NAME="$2"
     STATE_NAME="$3"
     MISC="''${@:4}"
-
-    ENABLED_VMS=(${machinesStr})
 
     function invoke_hook() {
       case $HOOK_NAME in
@@ -173,8 +131,8 @@ let
       esac
     }
 
-    for VM in ''${ENABLED_VMS[@]}; do
-      if [ "$VM" == "$GUEST_NAME" ]; then
+    for vm in ${machinesStr}; do
+      if [ "$vm" == "$GUEST_NAME" ]; then
         invoke_hook
       fi
     done
@@ -188,15 +146,6 @@ in {
         default = false;
         description = ''
           Enables declarative libvirt hooks
-        '';
-      };
-
-      qemuHookPath = mkOption {
-        type = types.path;
-        default = "/var/lib/libvirt/hooks/qemu";
-        description = ''
-          The path in which the libvirt qemu hook is located.
-          This shouldn't ever need to be changed.
         '';
       };
 
@@ -235,19 +184,9 @@ in {
   };
 
   config = mkIf cfg.enable {
-    systemd.services.libvirtd.path = [ pkgs.kmod ];
-
-    systemd.services.single-gpu-passthrough = {
-      description = "Single GPU passthrough helper service";
-      wantedBy = [ "multi-user.target" ];
-      enable = true;
-
-      serviceConfig = {
-        Type = "oneshot";
-        ExecStart = "${hookInstaller}/bin/qemu-hook-installer";
-        RemainAfterExit = "true";
-        Restart = "no";
-      };
+    systemd.services.libvirtd = {
+      preStart = "${hookInstaller}/bin/installer";
+      path = with pkgs; [ kmod util-linux ];
     };
   };
 }
