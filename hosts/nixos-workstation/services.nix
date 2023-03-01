@@ -26,4 +26,12 @@
       hplipWithPlugin
     ];
   };
+
+  systemd.services.terraria.wantedBy = lib.mkForce [];
+  services.terraria = {
+    enable = true;
+    openFirewall = true;
+    worldPath = "/var/lib/terraria/world.wld";
+    messageOfTheDay = "Welcome to hell, enjoy your stay.";
+  };
 }
