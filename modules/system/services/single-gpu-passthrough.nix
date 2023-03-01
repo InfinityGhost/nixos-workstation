@@ -89,26 +89,7 @@ let
     }
 
     function attach() {
-      # Unload VFIO drivers
-      for driver in "vfio" "vfio_pci" "vfio_iommu_type1"; do
-        rmmod $driver
-      done;
-
-      for driver in ${modulesStr}; do
-        modprobe $driver
-      done
-
-      ${attachHookCommands}
-
-      for mountpoint in ${mountPointStr}; do
-        mount $mountpoint
-      done
-
-      # Reload the framebuffer and console
-      echo 1 > /sys/class/vtconsole/vtcon0/bind
-      echo "efi-framebuffer.0" > /sys/bus/platform/drivers/efi-framebuffer/bind
-
-      systemctl start display-manager
+      reboot
     }
 
     GUEST_NAME="$1"
@@ -186,7 +167,7 @@ in {
   config = mkIf cfg.enable {
     systemd.services.libvirtd = {
       preStart = "${hookInstaller}/bin/installer";
-      path = with pkgs; [ kmod util-linux ];
+      path = with pkgs; [ kmod util-linux systemd ];
     };
   };
 }
