@@ -1,5 +1,5 @@
 diff --git a/wm.js b/wm.js
-index daa261f..fc5323c 100644
+index daa261f..802db02 100644
 --- a/wm.js
 +++ b/wm.js
 @@ -386,10 +386,19 @@ var WindowManager = GObject.registerClass(
@@ -8,8 +8,8 @@ index daa261f..fc5323c 100644
  
 -                if (this.right_or_bottom)
 -                    target_rect.y += workarea.height - target_rect.height;
-+                const padding = 10;
-+                
++                const padding = 11;
++
 +                target_rect.width /= 2;
 +                target_rect.x += target_rect.width / 2;
 +

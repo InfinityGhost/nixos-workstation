@@ -32,6 +32,7 @@ in
       tbc = "tb | clip";
       fp = "git fetch -p --all";
       virsh = "virsh --connect=qemu:///system";
+      findtext = "grep -rnw . -e";
     };
     histSize = 10000;
     interactiveShellInit = ''
