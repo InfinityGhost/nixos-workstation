@@ -6,12 +6,12 @@
 let
   pname = "minecraft-bedrock";
   name = pname;
-  version = "0.3.0";
-  buildNumber = "678";
+  version = "0.10.0";
+  buildNumber = "716";
 
   src = fetchurl {
-    url = "https://github.com/ChristopherHX/linux-packaging-scripts/releases/download/v${version}-${buildNumber}/Minecraft_Bedrock_Launcher-x86_64-0.0.${buildNumber}.AppImage";
-    sha256 = "04p9kc08jd1yvyrjr6g2wbp8a0f76x0kfp4bgcj7v0d654vy6p1p";
+    url = "https://github.com/ChristopherHX/linux-packaging-scripts/releases/download/v${version}-${buildNumber}/Minecraft_Bedrock_Launcher-x86_64-v${version}.${buildNumber}.AppImage";
+    sha256 = "sha256-kHJJau1WMATbqz5L1QSURbG7OC+cHV4tKvdolNzltA4=";
   };
 
   desktopItem = makeDesktopItem {
