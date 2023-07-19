@@ -41,8 +41,6 @@ in
   };
 
   config = mkIf (containers != {}) {
-    users.users.deluge.extraGroups = [ "media" ];
-
     systemd.nspawn = mapAttrs mkContainer (filterAttrs (n: v: v.enable) containers);
   };
 }
