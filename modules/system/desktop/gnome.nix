@@ -78,7 +78,7 @@ in
     };
 
     home-manager.sharedModules = [(
-      { pkgs, ... }: {
+      { lib, pkgs, ... }: {
         dconf.settings."org/gnome/shell" = {
           disable-user-extensions = false;
           enabled-extensions = [
@@ -104,6 +104,15 @@ in
           gnomeExtensions.pop-shell
           gnomeExtensions.tray-icons-reloaded
           gnomeExtensions.vertical-workspaces
+        ];
+
+        dconf.settings."org/gnome/shell".favorite-apps = map (n: n + ".desktop") [
+          "firefox"
+          "nemo"
+          "discord"
+          "thunderbird"
+          "code"
+          "rider"
         ];
       }
     )];
