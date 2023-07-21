@@ -85,15 +85,25 @@ in
             "ddterm@amezin.github.com"
             "pop-shell@system76.com"
             "trayIconsReloaded@selfmade.pl"
-            "vertical-overview@RensAlthuis.github.com"
+            "vertical-workspaces@G-dH.github.com"
           ];
+        };
+
+        dconf.settings."org/gnome/shell/extensions/vertical-workspaces" = {
+          ws-thumbnails-position = 4; # hidden thumbnails, vertical orientation
+          center-search = true; # center search view
+
+          # dash
+          dash-position = 3; # move to left
+          dash-show-recent-files-icon = 0; # hide show recent files icon in tray
+          dash-show-windows-icon = 0; # hide show windows icon in tray
         };
 
         home.packages = with pkgs; [
           ddterm-padded
           gnomeExtensions.pop-shell
           gnomeExtensions.tray-icons-reloaded
-          vertical-overview
+          gnomeExtensions.vertical-workspaces
         ];
       }
     )];
