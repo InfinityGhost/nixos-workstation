@@ -79,6 +79,13 @@ in
 
     home-manager.sharedModules = [(
       { lib, pkgs, ... }: {
+        home.packages = with pkgs; [
+          ddterm-padded
+          gnomeExtensions.pop-shell
+          gnomeExtensions.tray-icons-reloaded
+          gnomeExtensions.vertical-workspaces
+        ];
+
         dconf.settings."org/gnome/shell" = {
           disable-user-extensions = false;
           enabled-extensions = [
@@ -97,23 +104,11 @@ in
           dash-position = 3; # move to left
           dash-show-recent-files-icon = 0; # hide show recent files icon in tray
           dash-show-windows-icon = 0; # hide show windows icon in tray
+
+          # app grid
+          center-app-grid = true; # center app list to middle of display
+          app-grid-page-width-scale = 100; # width of grid
         };
-
-        home.packages = with pkgs; [
-          ddterm-padded
-          gnomeExtensions.pop-shell
-          gnomeExtensions.tray-icons-reloaded
-          gnomeExtensions.vertical-workspaces
-        ];
-
-        dconf.settings."org/gnome/shell".favorite-apps = map (n: n + ".desktop") [
-          "firefox"
-          "nemo"
-          "discord"
-          "thunderbird"
-          "code"
-          "rider"
-        ];
       }
     )];
   };

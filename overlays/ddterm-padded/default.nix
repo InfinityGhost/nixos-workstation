@@ -7,13 +7,13 @@ self: super: {
       jq
     ];
 
-    # force current gnome shell version
+    # force gnome shell version
     installPhase = old.installPhase + ''
       cd $out/share/gnome-shell/extensions/ddterm@amezin.github.com
 
       f=$(mktemp)
       cat ./metadata.json | \
-        jq '."shell-version"=["${super.user.lib.versions.major super.gnome.gnome-shell-extensions.version}"]' > $f
+        jq '."shell-version"=["${super.lib.versions.major super.gnome.gnome-shell-extensions.version}"]' > $f
 
       mv $f ./metadata.json
     '';
