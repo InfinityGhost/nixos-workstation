@@ -16,10 +16,7 @@
     extraModulePackages = [ ];
   };
 
-  hardware = {
-    cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-    video.hidpi.enable = lib.mkDefault true;
-  };
+  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   services.xserver.displayManager.gdm.monitors.xml = ''
     <monitors version="2">

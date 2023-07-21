@@ -35,9 +35,6 @@ in
     environment.systemPackages = with pkgs; [
       # GNOME Software
       gnome.gnome-tweaks
-      gnomeExtensions.vertical-overview
-      gnomeExtensions.pop-shell
-      ddterm-padded
       # GTK+ Theme
       mint-y-icons
       # Internet
@@ -79,5 +76,26 @@ in
       enable = true;
       daemon.enable = true;
     };
+
+    home-manager.sharedModules = [(
+      { pkgs, ... }: {
+        dconf.settings."org/gnome/shell" = {
+          disable-user-extensions = false;
+          enabled-extensions = [
+            "ddterm@amezin.github.com"
+            "pop-shell@system76.com"
+            "trayIconsReloaded@selfmade.pl"
+            "vertical-overview@RensAlthuis.github.com"
+          ];
+        };
+
+        home.packages = with pkgs; [
+          ddterm-padded
+          gnomeExtensions.pop-shell
+          gnomeExtensions.tray-icons-reloaded
+          vertical-overview
+        ];
+      }
+    )];
   };
 }

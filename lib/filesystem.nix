@@ -13,6 +13,8 @@ rec {
   # Imports all subdirectories in a given directory into a module.
   importSubdirs = dir: { imports = listDirs dir; };
 
+  ls = dir: lib.attrValues (lib.mapAttrs (n: v: n + (if v == "directory" then "/" else "")) (builtins.readDir dir));
+
   # Filesystem mount helpers
   mount = {
     zfs = device: {

@@ -1,8 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 {
   boot = {
-    kernelPackages = pkgs.linuxPackages_zen;
+    kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
     extraModprobeConfig = ''
       options kvm ignore_msrs=Y
       options kvm report_ignored_msrs=N
