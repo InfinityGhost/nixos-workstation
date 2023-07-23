@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> {}, ... }:
 
 with pkgs;
 
@@ -8,9 +8,11 @@ let
   '';
 in mkShell {
   buildInputs = [
+    nix
+    nix-zsh-completions
     git
     gnupg
-    nix-zsh-completions
+    jq
   ];
   shellHook = ''
     export PATH="${./bin}:${nixBin}/bin:$PATH"

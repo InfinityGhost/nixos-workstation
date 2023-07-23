@@ -30,6 +30,7 @@ in
       totem
       epiphany
       eog
+      gnome-shell-extensions
     ];
 
     environment.systemPackages = with pkgs; [
@@ -81,6 +82,7 @@ in
       { lib, pkgs, ... }: {
         home.packages = with pkgs; [
           ddterm-padded
+          focus-window
           gnomeExtensions.pop-shell
           gnomeExtensions.tray-icons-reloaded
           gnomeExtensions.vertical-workspaces
@@ -93,6 +95,7 @@ in
             "pop-shell@system76.com"
             "trayIconsReloaded@selfmade.pl"
             "vertical-workspaces@G-dH.github.com"
+            "focus-window@chris.al"
           ];
         };
 

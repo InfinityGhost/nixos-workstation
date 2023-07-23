@@ -2,13 +2,20 @@
 
 {
   imports = with inputs; [
-    "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-    "${nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
+    "${nixos}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+    "${nixos}/nixos/modules/installer/cd-dvd/channel.nix"
   ];
 
   systemd.services.sshd.wantedBy = pkgs.lib.mkForce [ "multi-user.target" ];
+  networking.wireless.enable = false;
 
   services.remote-build.enable = true;
 
-  nix.package = pkgs.nixUnstable;
+  environment.etc."flake".source = toString ../..;
+
+  desktop.gnome.enable = true;
+
+  environment.systemPackages = with pkgs; [
+    vscode
+  ];
 }

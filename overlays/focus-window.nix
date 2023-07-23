@@ -21,8 +21,8 @@ self: super: let
   });
 
 in {
-  vertical-overview = forceExtension {
-    pkg = super.gnomeExtensions.vertical-overview;
-    uuid = "vertical-overview@RensAlthuis.github.com";
+  focus-window = forceExtension {
+    pkg = super.gnomeExtensions.focus-window;
+    uuid = "focus-window@chris.al";
   };
 }
