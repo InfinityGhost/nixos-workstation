@@ -67,7 +67,7 @@ in
       blender
       # Utilities
       xclip
-      scrcpy
+      unstable.scrcpy
       user.android-screen
     ];
 

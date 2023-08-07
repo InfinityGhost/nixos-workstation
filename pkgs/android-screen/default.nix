@@ -1,21 +1,41 @@
-{ lib
-, symlinkJoin
-, scrcpy
+{ writeShellApplication
 , makeDesktopItem
+, symlinkJoin
+
+, unstable # [ scrcpy ]
 }:
 
 let
-  pname = "android-screen";
+  name = "android-screen";
+  desktopName = "Phone";
+  icon = "androidstudio";
+
+  script = writeShellApplication {
+    inherit name;
+
+    runtimeInputs = [
+      unstable.scrcpy
+    ];
+
+    text = ''
+      ip=''${1:-""}
+      port=''${2:-""}
+
+      if [ -z "$ip" ] && [ -z "$port" ]; then
+        scrcpy -Swd
+      else
+        scrcpy -Sw --tcpip="$ip:$port"
+      fi
+    '';
+  };
 
   desktopItem = makeDesktopItem {
-    name = pname;
-    exec = "${scrcpy}/bin/scrcpy -Sw";
-    icon = "androidstudio";
+    inherit name desktopName icon;
+    exec = "${script}";
     comment = "Android Screen shortcut with scrcpy";
-    desktopName = "Android Screen";
   };
 
 in symlinkJoin {
-  name = pname;
-  paths = [ desktopItem ];
+  inherit name;
+  paths = [ script desktopItem ];
 }
