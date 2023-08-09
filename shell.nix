@@ -1,20 +1,19 @@
 { pkgs ? import <nixpkgs> {}, ... }:
-
-with pkgs;
-
-let
-  nixBin = writeShellScriptBin "nix" ''
-    ${nixFlakes}/bin/nix --option experimental-features "nix-command flakes" "$@"
-  '';
-in mkShell {
-  buildInputs = [
-    nix
+  
+pkgs.mkShell {
+  buildInputs = with pkgs; [
+    nixFlakes
     nix-zsh-completions
     git
     gnupg
     jq
   ];
   shellHook = ''
-    export PATH="${./bin}:${nixBin}/bin:$PATH"
+    export PATH="${./bin}:$PATH"
+    export PROJECT_ROOT="$(git rev-parse --show-toplevel)"
+
+    cdr() {
+      [ -d "$PROJECT_ROOT" ] && cd "$PROJECT_ROOT"
+    }
   '';
 }
