@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ... }:
+{ lib, config, flake, ... }:
 
 let
   inherit (lib) mkEnableOption mkOption mkIf types;
@@ -11,7 +11,7 @@ in
 
     package = mkOption {
       type = types.package;
-      default = pkgs.user.minecraft-bedrock-server;
+      default = flake.nixpkgsFor.x86_64-linux.user.minecraft-bedrock-server;
       description = "Package containing the minecraft bedrock server";
     };
 

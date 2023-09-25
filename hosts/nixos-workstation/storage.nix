@@ -1,14 +1,11 @@
 { lib, ... }:
 
-with lib.my.mount;
-
-{
+let
+  inherit (lib.my.filesystem) zfs vfat ntfs;
+in {
   fileSystems = {
     "/" = zfs "nixpool/root";
-    "/boot" = {
-      device = "/dev/disk/by-uuid/7561-A493";
-      fsType = "vfat";
-    };
+    "/boot" = vfat "/dev/disk/by-uuid/7561-A493";
     "/nix" = zfs "nixpool/nix";
     "/home" = zfs "nixpool/home";
     "/repos" = zfs "nixpool/repos";

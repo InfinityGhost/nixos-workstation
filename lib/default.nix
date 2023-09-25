@@ -1,17 +1,26 @@
-{ inputs, lib, pkgs, ... }:
+{ lib, ... } @ inputs:
 
 let
-  inherit (lib) makeExtensible attrValues foldr;
-  inherit (modules) mapModules;
+  inherit (builtins) readDir;
+  inherit (lib) nameValuePair filterAttrs mapAttrs' genAttrs foldr;
+in rec {
+  filesystem = import ./filesystem.nix inputs;
+  modules = import ./modules.nix inputs;
 
-  modules = import ./modules.nix {
-    inherit lib;
-    self.attrs = import ./attrs.nix { inherit lib; self = {}; };
-  };
+  # Supported system types
+  systems = [ "x86_64-linux" "i686-linux" "aarch64-linux" ];
 
-  mylib = makeExtensible (self:
-    with self; mapModules ./.
-      (file: import file { inherit self lib pkgs inputs; }));
-in mylib.extend
-  (self: super:
-    foldr (a: b: a // b) {} (attrValues super))
+  # Helper function to generate an attrset
+  #   '{ x86_64-linux = f "x86_64-linux"; ... }'
+  forAllSystems = f: genAttrs systems (system: f system);
+
+  # Helper function to generate an attrset for all system types for every host
+  #   '{ ${name}-${system} = f name system; ... }'
+  mapHosts = dir: f: foldr (a: b: a // b) {}
+    (map (system:
+      mapAttrs'
+        (name: _: nameValuePair "${name}-${system}" (f name system))
+        (filterAttrs (_: t: t == "directory") (readDir dir)))
+      systems
+    );
+}

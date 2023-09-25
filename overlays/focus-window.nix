@@ -1,5 +1,5 @@
 self: super: let
-  inherit (super.user.lib) versions;
+  # inherit (super.user.lib) versions;
   inherit (builtins) readDir;
 
   forceExtension = { pkg, uuid, shellVersion ? super.gnome.gnome-shell-extensions.version }: pkg.overrideAttrs (old: {
@@ -14,7 +14,7 @@ self: super: let
 
       f=$(mktemp)
       cat ./metadata.json | \
-        jq '."shell-version"=["${versions.major shellVersion}"]' > $f
+        jq '."shell-version"=["${shellVersion}"]' > $f
 
       mv $f ./metadata.json
     '';

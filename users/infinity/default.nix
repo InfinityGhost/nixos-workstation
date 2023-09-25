@@ -1,8 +1,9 @@
-{ lib, pkgs, config, home-manager, ... }:
+{ lib, ... }:
 
-with lib.my;
-
-{
+let
+  inherit (builtins) readDir readFile;
+  inherit (lib) mapAttrsToList;
+in {
   users.users.infinity = {
     isNormalUser = true;
     uid = 1000;
@@ -15,7 +16,7 @@ with lib.my;
       "deluge"
       "media"
     ];
-    openssh.authorizedKeys.keys = map builtins.readFile (listFiles ./ssh);
+    openssh.authorizedKeys.keyFiles = mapAttrsToList (n: _: ./ssh/${n}) (readDir ./ssh);
   };
 
   home-manager.users.infinity = import ./home.nix;

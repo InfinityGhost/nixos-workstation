@@ -1,13 +1,9 @@
-{ lib, inputs, pkgs, config, ... }:
+{ lib, inputs, pkgs, config, flake, ... }:
 
-with lib;
-with lib.my;
-
-{
-  imports = [ inputs.home-manager.nixosModules.home-manager ]
-    ++ (mapModulesRec' (toString ./modules/system ) import)
-    ++ (mapModules' (toString ./users) import);
-
+let
+  inherit (builtins) attrValues trace;
+  inherit (lib.my.modules) mapModulesRec';
+in {
   nix = {
     distributedBuilds = true;
     settings.trusted-users = [
@@ -20,13 +16,13 @@ with lib.my;
     extraOptions = ''
       experimental-features = nix-command
       experimental-features = nix-command flakes
+      experimental-features = nix-command flakes repl-flake
     '';
 
     nixPath = [
       "nixpkgs=${inputs.nixos}"
-      "nixpkgs-overlays=${dotFilesDir}/overlays"
+      "nixpkgs-overlays=${../overlays}"
       "home-manager=${inputs.home-manager}"
-      "dotfiles=${dotFilesDir}"
       "/nix/var/nix/profiles/per-user/root/channels"
     ];
 
@@ -41,8 +37,11 @@ with lib.my;
     useGlobalPkgs = true;
     useUserPackages = true;
     sharedModules = [ { home.stateVersion = config.system.stateVersion; } ]
-      ++ mapModulesRec' (toString ./modules/home) import;
-    extraSpecialArgs = { inherit inputs; };
+      ++ mapModulesRec' ../modules/home import;
+    extraSpecialArgs = {
+      inherit inputs;
+      nixosPkgs = pkgs;
+    };
   };
 
   time.timeZone = "America/New_York";

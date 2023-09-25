@@ -1,11 +1,16 @@
-{ self, lib, ... }:
+{ lib, ... }:
 
 let
   inherit (builtins) attrValues readDir pathExists concatLists;
-  inherit (lib) id mapAttrsToList filterAttrs hasPrefix hasSuffix nameValuePair removeSuffix;
-  inherit (self.attrs) mapFilterAttrs;
-in
-rec {
+  inherit (lib) id mapAttrsToList filterAttrs hasPrefix hasSuffix nameValuePair removeSuffix mapAttrs';
+
+  # mapFilterAttrs ::
+  #   (name -> value -> bool)
+  #   (name -> value -> { name = any; value = any; })
+  #   attrs
+  mapFilterAttrs = pred: f: attrs: filterAttrs pred (mapAttrs' f attrs);
+
+in rec {
   mapModules = dir: fn:
     mapFilterAttrs
       (n: v:
@@ -45,7 +50,7 @@ rec {
         mapAttrsToList
           (k: _: "${dir}/${k}")
           (filterAttrs
-            (n: v: v == "directory" && !(hasPrefix "_" n))
+            (name: type: type == "directory")
             (readDir dir));
       files = attrValues (mapModules dir id);
       paths = files ++ concatLists (map (d: mapModulesRec' d id) dirs);

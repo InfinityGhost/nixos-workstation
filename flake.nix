@@ -10,40 +10,60 @@
   };
 
   outputs = inputs @ { self, nixos, nixos-unstable, home-manager, ... }: let
-    inherit (builtins) baseNameOf;
-    inherit (lib) nixosSystem mkIf removeSuffix attrNames attrValues;
-    inherit (lib.my) dotFilesDir mapModules mapModulesRec mapHosts;
+    inherit (builtins) baseNameOf attrValues;
+    inherit (lib) nixosSystem genAttrs;
+    inherit (lib.my) mapHosts forAllSystems;
+    inherit (lib.my.modules) mapModules mapModules' mapModulesRec mapModulesRec';
 
-    system = "x86_64-linux";
+    lib = nixos.lib.extend (self: super: {
+      my = import ./lib (inputs // { inherit lib; });
+    });
 
-    lib = nixos.lib.extend
-      (self: super: { my = import ./lib { inherit pkgs inputs; lib = self; }; });
-
-    mkPkgs = pkgs: extraOverlays: import pkgs {
+    # Helper function to configure nixpkgs for a given system
+    configureNixpkgs = nixpkgs: system: import nixpkgs {
       inherit system;
       config.allowUnfree = true;
-      overlays = extraOverlays ++ (attrValues self.overlays);
+      overlays = (attrValues self.overlays) ++ [ self.overlay ];
     };
-    pkgs = mkPkgs nixos [ self.overlay ];
-    pkgsUnstable = mkPkgs nixos-unstable [];
 
-  in {
-    inherit lib pkgs;
+  in rec {
+    # nixpkgs instantiated for all supported systems
+    nixpkgsFor = forAllSystems (system: configureNixpkgs nixos system);
 
     overlay = final: prev: {
-      user = self.packages.${system} // { inherit lib; };
-      unstable = pkgsUnstable;
-      nix-gaming = inputs.nix-gaming.packages.${system};
+      user = self.packages.${final.system} // { inherit lib; };
+      unstable = configureNixpkgs nixos-unstable final.system;
+      nix-gaming = inputs.nix-gaming.packages.${final.system};
     };
 
     overlays = mapModules ./overlays import;
 
-    packages."${system}" = mapModules ./pkgs (p: pkgs.callPackage p {});
+    packages = forAllSystems (system: mapModules ./pkgs (p: nixpkgsFor.${system}.callPackage p {}));
 
-    nixosModules = { dotfiles = import ./.; } // mapModulesRec ./modules/system import;
+    nixosModules = mapModulesRec ./modules/system import;
 
-    nixosConfigurations = mapHosts ./hosts { inherit system; };
+    nixosConfigurations = mapHosts ./hosts
+      (name: system: nixosSystem {
+        specialArgs = { inherit lib inputs system; flake = self; };
+        modules = [
+          ./hosts/default.nix # shared system config
+          ./hosts/${name} # host specific config
 
-    devShell."${system}" = import ./shell.nix { inherit pkgs; };
+          home-manager.nixosModule
+
+          {
+            networking.hostName = name; # set hostname
+            nixpkgs = {
+              hostPlatform = system;
+              pkgs = nixpkgsFor.${system};
+            };
+
+            imports = (mapModulesRec' ./modules/system import) # system modules
+              ++ (mapModules' ./users import); # user configurations
+          }
+        ];
+      });
+
+    devShell = forAllSystems (system: import ./shell.nix { inherit system; flake = self; });
   };
 }

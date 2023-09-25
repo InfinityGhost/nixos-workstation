@@ -1,9 +1,15 @@
-{ pkgs ? import <nixpkgs> {}, ... }:
-  
-pkgs.mkShell {
+{ flake ? builtins.getFlake "path:${toString ./.}"
+, system ? "x86_64-linux"
+}:
+
+let
+  pkgs = flake.nixpkgsFor.${system};
+in pkgs.mkShell {
   buildInputs = with pkgs; [
     nixFlakes
     nix-zsh-completions
+    nixpkgs-fmt
+    nettools
     git
     gnupg
     jq
@@ -11,9 +17,6 @@ pkgs.mkShell {
   shellHook = ''
     export PATH="${./bin}:$PATH"
     export PROJECT_ROOT="$(git rev-parse --show-toplevel)"
-
-    cdr() {
-      [ -d "$PROJECT_ROOT" ] && cd "$PROJECT_ROOT"
-    }
+    export NIXOS_CONFIGURATION="$(hostname)-$system"
   '';
 }

@@ -41,7 +41,7 @@ in
 
       [ -f ~/.aliases ] && source ~/.aliases
 
-      export PATH=${lib.my.binDir}:$PATH
+      export PATH=${lib.my.filesystem.binDir}:$PATH
     '';
     setOptions = [
       "HIST_IGNORE_DUPS"
