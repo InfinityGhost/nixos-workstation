@@ -13,6 +13,7 @@ in pkgs.mkShell {
     git
     gnupg
     jq
+    android-tools
   ];
   shellHook = ''
     export PATH="${./bin}:$PATH"

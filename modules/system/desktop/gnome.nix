@@ -78,7 +78,6 @@ in
       # Utilities
       xclip
       unstable.scrcpy
-      user.android-screen
     ];
 
     hardware.opengl.driSupport32Bit = true;
@@ -86,6 +85,7 @@ in
     hardware.opentabletdriver = {
       enable = true;
       daemon.enable = true;
+      package = pkgs.unstable.opentabletdriver;
     };
 
     home-manager.sharedModules = [{

@@ -16,7 +16,6 @@ in
       mesa
       lutris
       heroic
-      nix-gaming.osu-lazer-bin
       nix-gaming.osu-stable
       minecraft
       minecraft-bedrock

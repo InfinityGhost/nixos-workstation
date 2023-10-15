@@ -1,0 +1,25 @@
+diff --git a/app/src/screen.c b/app/src/screen.c
+index 5b7a8808..a1b53e88 100644
+--- a/app/src/screen.c
++++ b/app/src/screen.c
+@@ -529,7 +529,20 @@ resize_for_content(struct sc_screen *screen, struct sc_size old_content_size,
+                 / old_content_size.height,
+     };
+     target_size = get_optimal_size(target_size, new_content_size, true);
++
++    struct sc_point pos = get_window_position(screen);
++
++    bool width_gt = target_size.width > window_size.width;
++    bool height_gt = target_size.height > window_size.height;
++
++    int32_t x_diff = width_gt ? target_size.width - window_size.width : window_size.width - target_size.width;
++    int32_t y_diff = height_gt ? target_size.height - window_size.height : window_size.height - target_size.height;
++
++    int32_t x = width_gt ? pos.x - (x_diff / 2) : pos.x + (x_diff / 2);
++    int32_t y = height_gt ? pos.y - (y_diff / 2) : pos.y + (y_diff / 2);
++
+     set_window_size(screen, target_size);
++    SDL_SetWindowPosition(screen->window, x, y);
+ }
+ 
+ static void
