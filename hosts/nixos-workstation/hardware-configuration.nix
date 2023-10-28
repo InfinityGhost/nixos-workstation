@@ -16,6 +16,8 @@
     extraModulePackages = [ ];
   };
 
+  services.xserver.videoDrivers = [ "nvidia" ];
+
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   services.xserver.displayManager.gdm.monitors.xml = ''

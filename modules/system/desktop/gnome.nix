@@ -1,9 +1,7 @@
 { lib, config, pkgs, flake, system, ... }:
 
 let
-  inherit (lib)
-    mkEnableOption
-    mkIf;
+  inherit (lib) mkEnableOption mkIf;
 
   cfg = config.desktop.gnome;
 in
@@ -15,7 +13,6 @@ in
   config = mkIf cfg.enable {
     services.xserver = {
       enable = true;
-      videoDrivers = [ "nvidia" ];
 
       # GNOME Display Manager
       displayManager.gdm = {
@@ -49,7 +46,7 @@ in
       # GTK+ Theme
       mint-y-icons
       # Internet
-      unstable.firefox
+      unstable.firefox-beta
       unstable.google-chrome
       unstable.discord
       gnome-feeds

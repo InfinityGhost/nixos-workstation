@@ -24,7 +24,6 @@ in
     shellAliases = {
       ls = "ls --color=auto";
       ll = "ls -l";
-      cdr = "cd $(git rev-parse --show-toplevel)";
       grep  = "grep --color=auto";
       tohex = "od -An -tx1";
       clip = "xclip -selection clipboard";
@@ -33,13 +32,12 @@ in
       fp = "git fetch -p --all";
       virsh = "virsh --connect=qemu:///system";
       findtext = "grep -rnw . -e";
+      nb = "nix build $@ --no-link --print-out-paths";
     };
     histSize = 10000;
     interactiveShellInit = ''
       # Inject direnv
       eval "$(direnv hook zsh)" > /dev/null
-
-      [ -f ~/.aliases ] && source ~/.aliases
 
       export PATH=${lib.my.filesystem.binDir}:$PATH
     '';
@@ -70,7 +68,12 @@ in
 
       PROMPT='%B''${zsh_color}%n%f%b@%B''${zsh_color}%m%b%f ''${zsh_info}%f''${NEWLINE}  %# '
 
-      add-path() {
+      function cdr() {
+        d="$(git rev-parse --show-toplevel)"
+        [ -d "$d" ] && cd "$d"
+      }
+
+      function add-path() {
         target_path=$(realpath "$@")
         bin_path=$target_path/bin
         lib_path=$target_path/lib
@@ -91,9 +94,9 @@ in
         fi
       }
 
-      add-nix-build() {
-        for derivation in $(nix build --no-link --print-out-paths ''$@); do
-          add-path $derivation
+      function add-nix-build() {
+        for drv in $(nix build --no-link --print-out-paths ''$@); do
+          add-path $drv
         done
       }
     '';

@@ -29,6 +29,7 @@ in {
     registry = {
       nixos.flake = inputs.nixos;
       nixpkgs.flake = inputs.nixos;
+      unstable.flake = inputs.nixos-unstable;
       nix-gaming.flake = inputs.nix-gaming;
     };
   };

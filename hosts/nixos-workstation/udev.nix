@@ -13,6 +13,14 @@
 
     # ADB
     SUBSYSTEM=="usb", ATTR{idVendor}=="2833", ATTR{idProduct}=="0186", MODE="0666", OWNER="infinity"
+
+    # Thrustmaster T300RS GT 044f:b66e
+    KERNEL=="hidraw*", ATTRS{idVendor}=="044f", ATTRS{idProduct}=="b660", TAG+="uaccess", TAG+="udev-acl"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="044f", ATTRS{idProduct}=="b660", TAG+="uaccess", TAG+="udev-acl"
+
+    # Thrustmaster T500 RS Gear Shift 044f:b660
+    KERNEL=="hidraw*", ATTRS{idVendor}=="044f", ATTRS{idProduct}=="b660", TAG+="uaccess", TAG+="udev-acl"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="044f", ATTRS{idProduct}=="b660", TAG+="uaccess", TAG+="udev-acl"
   '';
 
   boot.blacklistedKernelModules = [
