@@ -16,7 +16,7 @@ in
       mesa
       lutris
       heroic
-      nix-gaming.osu-stable
+      # nix-gaming.osu-stable
       minecraft
       minecraft-bedrock
       dolphinEmu

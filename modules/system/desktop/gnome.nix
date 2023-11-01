@@ -97,6 +97,8 @@ in
         ];
       };
 
+      dconf.settings."org/gnome/mutter".center-new-windows = true;
+
       dconf.settings."org/gnome/shell/extensions/vertical-workspaces" = {
         ws-thumbnails-position = 4; # hidden thumbnails, vertical orientation
         center-search = true; # center search view
@@ -111,5 +113,15 @@ in
         app-grid-page-width-scale = 100; # width of grid
       };
     }];
+
+    environment.etc."X11/xorg.conf.d/50-mouse-acceleration.conf".text = ''
+      Section "InputClass"
+        Identifier "Mouse"
+        Driver "libinput"
+        MatchIsPointer "yes"
+        Option "AccelProfile" "flat"
+        Option "AccelSpeed" "0"
+      EndSection
+    '';
   };
 }

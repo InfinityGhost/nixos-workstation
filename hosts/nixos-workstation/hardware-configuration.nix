@@ -7,7 +7,7 @@
 
   boot = {
     initrd = {
-      availableKernelModules = [ "ahci" "xhci_pci" "usbhid" "usb_storage" "sd_mod" ];
+      availableKernelModules = [ "nvme" "ahci" "xhci_pci" "usbhid" "usb_storage" "sd_mod" ];
       supportedFilesystems = [ "zfs" ];
       kernelModules = [ ];
     };
@@ -44,15 +44,5 @@
         </logicalmonitor>
       </configuration>
     </monitors>
-  '';
-
-  environment.etc."X11/xorg.conf.d/50-mouse-acceleration.conf".text = ''
-    Section "InputClass"
-      Identifier "Mouse"
-      Driver "libinput"
-      MatchIsPointer "yes"
-      Option "AccelProfile" "flat"
-      Option "AccelSpeed" "0"
-    EndSection
   '';
 }

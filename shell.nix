@@ -14,6 +14,7 @@ in pkgs.mkShell {
     gnupg
     jq
     android-tools
+    dconf2nix
   ];
   shellHook = ''
     export PATH="${./bin}:$PATH"
