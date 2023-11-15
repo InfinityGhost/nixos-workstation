@@ -19,6 +19,6 @@ in pkgs.mkShell {
   shellHook = ''
     export PATH="${./bin}:$PATH"
     export PROJECT_ROOT="$(git rev-parse --show-toplevel)"
-    export NIXOS_FLAKE=".#$(hostname)-$system"
+    export NIXOS_FLAKE="$PROJECT_ROOT#$(hostname)-$system"
   '';
 }

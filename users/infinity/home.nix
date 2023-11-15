@@ -1,12 +1,6 @@
 { pkgs, lib, config, nixosConfig, ... }:
 
 {
-  programs.steam.libraryFolders = {
-    root = "${config.home.homeDirectory}/.local/share/Steam";
-    linux = "/mnt/Games/SteamLibrary";
-    windows = "/mnt/Games/Windows/SteamLibrary";
-  };
-
   programs.direnv.enable = true;
 
   dconf.settings."org/gnome/shell".favorite-apps = map (n: n + ".desktop") [
@@ -14,8 +8,10 @@
     "nemo"
     "discord"
     "thunderbird"
+    "org.gnome.Console"
     "code"
     "rider"
+    "steam"
   ];
 
   dconf.settings."org/gnome/desktop/wm/keybindings" = {

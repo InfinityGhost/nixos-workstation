@@ -22,10 +22,13 @@ let
 
   hookInstaller = pkgs.writers.writeBashBin "installer" ''
     hookPath="/var/lib/libvirt/hooks/qemu"
-    mkdir -p $(dirname $hookPath)
+    hookSource="${qemuHook}/bin/qemu"
 
-    [ -f "$hookPath" ] && mv "$hookPath" "''${hookPath}.stateful"
-    ln -svf "${qemuHook}/bin/qemu" "$hookPath"
+    mkdir -p $(dirname "$hookPath")
+
+    if [ "$hookSource" != "$(realpath $hookPath)" ]; then
+      ln -svf "$hookSource" "$hookPath"
+    fi
 
     exit 0
   '';
@@ -89,7 +92,26 @@ let
     }
 
     function attach() {
-      reboot
+      # Unload VFIO drivers
+      for driver in "vfio" "vfio_pci" "vfio_iommu_type1"; do
+        rmmod $driver
+      done;
+
+      for driver in ${modulesStr}; do
+        modprobe $driver
+      done
+
+      ${attachHookCommands}
+
+      for mountpoint in ${mountPointStr}; do
+        mount $mountpoint
+      done
+
+      # Reload the framebuffer and console
+      echo 1 > /sys/class/vtconsole/vtcon0/bind
+      echo "efi-framebuffer.0" > /sys/bus/platform/drivers/efi-framebuffer/bind
+
+      systemctl start display-manager
     }
 
     GUEST_NAME="$1"

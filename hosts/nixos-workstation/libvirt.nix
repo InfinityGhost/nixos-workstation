@@ -9,7 +9,6 @@
   desktop.vm = {
     machines = {
       win-vfio.desktopName = "Windows";
-      macos-vfio.desktopName = "macOS";
     };
     shares = {
       vm = "/mnt/Archive/VM";

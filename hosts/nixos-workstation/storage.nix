@@ -13,6 +13,5 @@ in {
     "/mnt/Games/Windows" = ntfs "/dev/zvol/nixpool/games/win-part1";
     "/mnt/Archive" = ntfs "/dev/disk/by-label/Archive";
     "/mnt/HDD" = ntfs "/dev/disk/by-label/HDD";
-    "/mnt/VM" = ntfs "/dev/disk/by-partuuid/ebf49ab0-01";
   };
 }

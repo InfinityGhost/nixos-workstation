@@ -15,5 +15,7 @@
 
   desktop.gnome.enable = true;
   desktop.games.enable = true;
+  desktop.vnc-server.enable = true;
+
   development.dotnet.enable = true;
 }
