@@ -5,6 +5,11 @@
     fsType = "vfat";
   };
 
+  ext4 = device: {
+    inherit device;
+    fsType = "ext4";
+  };
+
   zfs = device: {
     inherit device;
     fsType = "zfs";

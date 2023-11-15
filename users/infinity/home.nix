@@ -14,20 +14,6 @@
     "steam"
   ];
 
-  dconf.settings."org/gnome/desktop/wm/keybindings" = {
-    move-to-center = [ "<Super>D" ];
-    panel-run-dialog = [ "<Super>r" ];
-    switch-windows = [ "<Alt>Tab" ];
-    switch-windows-backward = [ "<Shift><Alt>Tab" ];
-    toggle-fullscreen = [ "<Shift><Super>Return" ];
-    toggle-maximized = [ "<Super>f" ];
-    # fix conflicts with defaults
-    switch-applications-backward = [];
-    switch-applications = [];
-    maximize = [];
-    unmaximize = [];
-  };
-
   dconf.settings."org/gnome/mutter".edge-tiling = false;
 
   dconf.settings."org/gnome/shell/extensions/pop-shell" = {

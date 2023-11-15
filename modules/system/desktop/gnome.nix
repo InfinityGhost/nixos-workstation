@@ -97,7 +97,28 @@ in
         ];
       };
 
+      dconf.settings."org/gnome/desktop/wm/keybindings" = {
+        move-to-center = [ "<Super>D" ];
+        panel-run-dialog = [ "<Super>r" ];
+        switch-windows = [ "<Alt>Tab" ];
+        switch-windows-backward = [ "<Shift><Alt>Tab" ];
+        toggle-fullscreen = [ "<Shift><Super>Return" ];
+        toggle-maximized = [ "<Super>f" ];
+        # fix conflicts with defaults
+        switch-applications-backward = [];
+        switch-applications = [];
+        maximize = [];
+        unmaximize = [];
+      };
+
       dconf.settings."org/gnome/mutter".center-new-windows = true;
+
+      dconf.settings."org/gnome/desktop/interface" = {
+        gtk-theme = "Adwaita-dark";
+        color-scheme = "prefer-dark";
+        monospace-font-name = "Ubuntu Mono 12";
+        show-battery-percentage = true;
+      };
 
       dconf.settings."org/gnome/shell/extensions/vertical-workspaces" = {
         ws-thumbnails-position = 4; # hidden thumbnails, vertical orientation
@@ -111,6 +132,15 @@ in
         # app grid
         center-app-grid = true; # center app list to middle of display
         app-grid-page-width-scale = 100; # width of grid
+      };
+
+      dconf.settings."com/github/amezin/ddterm" = {
+        panel-icon-type = "toggle-button"; # click for dropdown terminal
+        tab-position = "top";
+        tab-policy = "automatic";
+        window-resizable = false;
+        notebook-border = false;
+        show-scrollbar = false;
       };
     }];
 
