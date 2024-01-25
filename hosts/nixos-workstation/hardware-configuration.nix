@@ -30,7 +30,7 @@
           <primary>yes</primary>
           <monitor>
             <monitorspec>
-              <connector>DP-0</connector>
+              <connector>DP-4</connector>
               <vendor>GBT</vendor>
               <product>G34WQC</product>
               <serial>20532B000925</serial>

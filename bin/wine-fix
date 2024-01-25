@@ -1,0 +1,210 @@
+#!/usr/bin/env bash
+
+shopt -s globstar
+set -eu
+
+function list_libraryfolders() {
+  steamroot="$(realpath ~/.steam/root)"
+  vdf="$steamroot/config/libraryfolders.vdf"
+
+  for token in $(grep 'path' "$vdf"); do
+    [ "$token" == '"path"' ] && continue
+    echo $token | tr -d '"'
+  done
+}
+
+function list_prefixes() {
+  unset IFS
+  for folder in $(list_libraryfolders); do
+    for data in $folder/steamapps/compatdata/*; do
+      echo $data
+    done
+  done
+}
+
+function list_proton() {
+  unset IFS
+  for folder in $(list_libraryfolders); do
+    for app in $folder/steamapps/common/*/; do
+      [ ! -x "$app/proton" ] && continue
+      echo "${app%/}"
+    done
+
+    for tool in $folder/compatibilitytools.d/*/; do
+      [ ! -d "$tool" ] && continue
+      echo "${tool%/}"
+    done
+  done
+}
+
+function find-wine() {
+  set +e
+  WINE_BIN="$(which wine 2>&1)"
+  set -e
+
+  if [ -x "$WINE_BIN" ]; then
+    IS_PROTON=0
+    echo "WINE_BIN='${WINE_BIN:-}'"
+    return
+  fi
+
+  protons=$(list_proton)
+  IFS=$'\n'
+  for proton in ${protons[@]}; do
+    bin="$(realpath $proton/*/bin)"
+    [ ! -d "$bin" ] && continue
+    [ ! -x "$proton/proton" ] && continue
+    [ ! -x "$bin/wine" ] && continue
+
+    if [ ${STEAM_ID:=0} -ne 0 ]; then
+      set +e
+      grep "$proton" "$WINEPREFIX/../config_info" 2>&1 > /dev/null
+      result=$?
+      set -e
+      if [ $result -eq 0 ]; then
+        IS_PROTON=1
+        WINE_BIN="$bin/wine"
+        break
+      fi
+    else
+      IS_PROTON=1
+      WINE_BIN="$bin/wine"
+      break
+    fi
+  done
+  unset IFS
+
+  if [ "${WINE_BIN:-}" ]; then
+    echo "WINE_BIN='${WINE_BIN:-}'"
+    return
+  fi
+
+  echo "ERROR: Failed to find a suitable wine install."
+  exit 1
+}
+
+function wine() {
+  [ -z "${WINE_BIN:-}" ] && find-wine
+
+  if [ ${IS_PROTON:-0} ]; then
+    steam-run "${WINE_BIN:?}" $@
+  else
+    "${WINE_BIN:?}" $@
+  fi
+}
+
+function print_help() {
+  echo "Usage: $(basename "${BASH_SOURCE[0]}") [OPTIONS]..."
+  echo "Arguments:"
+  echo "  -p, --prefix <prefix>         Select a wine prefix"
+  echo "  -s, --steam <id>              Select a Steam game's proton wine prefix"
+  echo "  -l, --list                    List all proton prefixes"
+  echo "  -c, --config                  Edit wine configuration"
+  echo
+  echo "Options:"
+  echo "  -d, --desktop <name> [size]   Set virtual desktop size"
+  echo "  -d, --desktop disable         Disable the virtual desktop"
+  echo "  -h, --help                    Print this help message"
+}
+
+declare -x WINEPREFIX="${WINEPREFIX:-}"
+declare -l VD_SIZE=""
+declare -i STEAM_ID=0
+declare -i VERBOSE=0
+
+declare WINE_BIN
+declare -i IS_PROTON
+
+while [ $# -gt 0 ]; do
+  case "$1" in
+    -p=*|--prefix=*)
+      WINEPREFIX="${1#*=}"
+      ;;
+    -p|--prefix)
+      WINEPREFIX="${2:?}"
+      shift
+      ;;
+    -s=*|--steam=*)
+      STEAM_ID="${1#*=}"
+      ;;
+    -s|--steam)
+      STEAM_ID="${2:?}"
+      shift
+      ;;
+    -v|--verbose)
+      VERBOSE=1
+      ;;
+    -d|--desktop)
+      VD_NAME="${2:?}"
+      VD_SIZE="${3:-}"
+      shift
+      [ "$VD_SIZE" ] && shift
+      ;;
+    -c|--config)
+      DO_WINECONFIG=1
+      ;;
+    -l|--list)
+      echo "Library folders:"
+      list_libraryfolders | sort -u
+      echo
+      echo "Wine prefixes:"
+      list_prefixes | sort -u
+      echo
+      echo "Proton installations:"
+      list_proton | sort -u
+      exit 0
+      ;;
+    *)
+      print_help
+      exit 1
+      ;;
+  esac
+  shift
+done
+
+if [ ${STEAM_ID:=0} -ne 0 ]; then
+  for libraryfolder in $(list_libraryfolders); do
+    for compatdata in "$libraryfolder/steamapps/compatdata/$STEAM_ID"; do
+      if [ -d "$compatdata/pfx" ]; then
+        WINEPREFIX="$compatdata/pfx"
+        break
+      fi
+    done
+  done
+fi
+
+declare -rx WINEPREFIX
+declare -rx WINEDEBUG="${WINEDEBUG:--all}"
+
+if [ ! -d "$WINEPREFIX" ]; then
+  echo "ERROR: You must select an existing wine prefix."
+  echo
+  print_help
+  exit 1
+fi
+
+echo "WINEPREFIX='$WINEPREFIX'"
+cd $WINEPREFIX
+
+if [ "${VD_NAME:-}" ]; then
+  hkcu_explorer="HKCU\\Software\\Wine\\Explorer"
+
+  if [ "$VD_NAME" != "disable" ]; then
+    echo "Updating the virtual desktop to '$VD_NAME'"
+
+    wine reg add $hkcu_explorer /v "Desktop" /d "$VD_NAME" /f
+
+    if [ "$VD_SIZE" ]; then
+      wine reg add $hkcu_explorer\\Desktops /v "$VD_NAME" /d "$VD_SIZE" /f
+    fi # TODO: what if there is no size and no desktop was already set?
+  else
+    echo "Disabling the virtual desktop"
+
+    wine reg delete "$hkcu_explorer" /v "Desktop" /f
+    wine reg delete "$hkcu_explorer\\Desktops" /va /f # deletes all desktops
+  fi
+fi
+
+if [ "${DO_WINECONFIG:-}" ]; then
+  wine winecfg
+fi

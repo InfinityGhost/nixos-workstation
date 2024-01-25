@@ -1,6 +1,8 @@
 { pkgs, config, ... }:
 
 let
+  inherit (pkgs) makeDesktopItem;
+
   steam = config.programs.steam.package;
 in
 {
@@ -11,7 +13,11 @@ in
 
   home-manager.users.htpc = {
     home.file.".config/autostart/steam.desktop" = {
-      source = "${steam}/share/applications/steam.desktop";
+      source = makeDesktopItem {
+        desktopName = "Steam";
+        exec = "${steam}/bin/steam -fullscreenopengl -720p";
+      };
+#      source = "${steam}/share/applications/steam.desktop";
     };
   };
 

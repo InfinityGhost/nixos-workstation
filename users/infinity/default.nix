@@ -15,6 +15,7 @@ in {
       "users"
       "deluge"
       "media"
+      "systemd-journal"
     ];
     openssh.authorizedKeys.keyFiles = mapAttrsToList (n: _: ./ssh/${n}) (readDir ./ssh);
   };

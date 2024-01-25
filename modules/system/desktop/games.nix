@@ -12,8 +12,9 @@ in
     programs.steam.enable = true;
 
     environment.systemPackages = with pkgs; with pkgs.user; [
-      # Games
+      # GPU drivers
       mesa
+      # Launchers
       lutris
       heroic
       # nix-gaming.osu-stable
@@ -25,6 +26,10 @@ in
       gnome.quadrapassel
       # Steam dependencies
       python3
+      killall
+      # Proton
+      winetricks
+      protontricks
     ];
   };
 }

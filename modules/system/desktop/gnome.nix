@@ -24,6 +24,11 @@ in
       desktopManager.gnome.enable = true;
     };
 
+    services.gnome = {
+      tracker-miners.enable = false; # file indexing
+      tracker.enable = false; # TODO: not really sure what this does
+    };
+
     environment.gnome.excludePackages = with pkgs.gnome; [
       cheese
       geary
@@ -38,8 +43,8 @@ in
       # GNOME Software
       gnome.gnome-tweaks
       # GNOME Extensions
-      ddterm-padded
-      focus-window
+      gse-ddterm-padded
+      gse-resize-window
       gnomeExtensions.pop-shell
       gnomeExtensions.tray-icons-reloaded
       gnomeExtensions.vertical-workspaces
@@ -93,7 +98,7 @@ in
           "pop-shell@system76.com"
           "trayIconsReloaded@selfmade.pl"
           "vertical-workspaces@G-dH.github.com"
-          "focus-window@chris.al"
+          "screenshot-window-sizer@gnome-shell-extensions.gcampax.github.com"
         ];
       };
 
@@ -128,6 +133,7 @@ in
         dash-position = 3; # move to left
         dash-show-recent-files-icon = 0; # hide show recent files icon in tray
         dash-show-windows-icon = 0; # hide show windows icon in tray
+        dash-show-extensions-icon = 0; # hide search extensions icon in tray
 
         # app grid
         center-app-grid = true; # center app list to middle of display

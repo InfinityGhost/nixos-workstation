@@ -139,6 +139,8 @@ let
         invoke_hook
       fi
     done
+
+    sleep 1
   '';
 
 in {

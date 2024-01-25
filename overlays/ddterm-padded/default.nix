@@ -1,21 +1,32 @@
 self: super: {
-  ddterm-padded = super.gnomeExtensions.ddterm.overrideAttrs (old: {
-    patches = [ ./0001-padding.patch ];
-
+  gse-ddterm-padded = super.gnomeExtensions.ddterm.overrideAttrs (old: {
     nativeBuildInputs = with self; old.nativeBuildInputs ++ [
+      perl
       coreutils
       jq
     ];
 
-    # force gnome shell version
-    installPhase = old.installPhase + ''
-      cd $out/share/gnome-shell/extensions/ddterm@amezin.github.com
+    # resize and padding
+    patchPhase = ''
+      SEARCH='if \(this.right_or_bottom\)\n +target_rect\.y \+= workarea\.height - target_rect\.height;'
 
-      f=$(mktemp)
-      cat ./metadata.json | \
-        jq '."shell-version"=["${super.lib.versions.major super.gnome.gnome-shell-extensions.version}"]' > $f
+      REPLACE='const padding = 11;
 
-      mv $f ./metadata.json
+      target_rect.width /= 2;
+      target_rect.x += target_rect.width / 2;
+
+      if (this.right_or_bottom) {
+        target_rect.y += workarea.height - target_rect.height - padding;
+      } else {
+        target_rect.y += padding;
+      }'
+
+      REGEX="s|$SEARCH|''${REPLACE//$'\n'/\\n            }|g"
+
+      perl -0777pe "$REGEX" -i ddterm/shell/wm.js
+
+      jq '."shell-version"=["${super.lib.versions.major super.gnome.gnome-shell-extensions.version}"]' metadata.json > metadata.json.new
+      mv metadata.json{.new,}
     '';
   });
 }

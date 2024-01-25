@@ -7,7 +7,7 @@ in
 {
   users.defaultUserShell = pkgs.zsh;
 
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     terminus_font
     terminus_font_ttf
     ubuntu_font_family
@@ -33,6 +33,7 @@ in
       virsh = "virsh --connect=qemu:///system";
       findtext = "grep -rnw . -e";
       nb = "nix build $@ --no-link --print-out-paths";
+      nbo = "nix-store -qR --include-outputs $(nix-store -qd $(nb $@)) | grep -v '\.drv$'";
     };
     histSize = 10000;
     interactiveShellInit = ''
