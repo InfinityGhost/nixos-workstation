@@ -67,7 +67,7 @@ in
         zsh_info="''${vcs_info_msg_0_:-%~}"
       }
 
-      PROMPT='%B''${zsh_color}%n%f%b@%B''${zsh_color}%m%b%f ''${zsh_info}%f''${NEWLINE}  %# '
+      PROMPT='%B''${zsh_color}%n%f%b@%B''${zsh_color}%m%b%f ''${zsh_info}%f %(1j.%j.)''${NEWLINE}  %# '
 
       function cdr() {
         d="$(git rev-parse --show-toplevel)"
