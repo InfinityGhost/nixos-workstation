@@ -116,7 +116,10 @@ in
         unmaximize = [];
       };
 
-      dconf.settings."org/gnome/mutter".center-new-windows = true;
+      dconf.settings."org/gnome/mutter" = {
+        center-new-windows = true;
+        dynamic-workspaces = true;
+      };
 
       dconf.settings."org/gnome/desktop/interface" = {
         gtk-theme = "Adwaita-dark";
