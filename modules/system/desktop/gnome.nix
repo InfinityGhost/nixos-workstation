@@ -51,7 +51,7 @@ in
       # GTK+ Theme
       mint-y-icons
       # Internet
-      unstable.firefox-beta
+      unstable.firefox
       unstable.google-chrome
       unstable.discord
       gnome-feeds

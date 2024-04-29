@@ -4,7 +4,7 @@
   programs.direnv.enable = true;
 
   dconf.settings."org/gnome/shell".favorite-apps = map (n: n + ".desktop") [
-    "firefox-beta"
+    "firefox"
     "nemo"
     "discord"
     "thunderbird"

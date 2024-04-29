@@ -54,11 +54,16 @@ in
     dconf.settings."org/gnome/settings-daemon/plugins/media-keys" = {
       volume-mute = [ "<Shift><Super>m" ];
     };
+
+    dconf.settings."org/gnome/shell/extensions/vertical-workspaces" = {
+      app-grid-incomplete-pages = false;
+    };
   };
 
   services.xserver.displayManager.gdm.settings.daemon = {
-    AutomaticLoginEnable = true;
-    AutomaticLogin = "htpc";
+    TimedLoginEnable = true;
+    TimedLogin = "htpc";
+    TimedLoginDelay = 5;
   };
 
   environment.systemPackages = with pkgs; [
