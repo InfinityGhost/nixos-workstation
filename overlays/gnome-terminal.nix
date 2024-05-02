@@ -1,5 +1,5 @@
 self: super: {
-  gnome = super.gnome.overrideScope' (gnomeSelf: gnomeSuper: {
+  gnome = super.gnome.overrideScope (gnomeSelf: gnomeSuper: {
     gnome-terminal = gnomeSuper.gnome-terminal.overrideAttrs (old: {
       patches = [
         (super.fetchurl {

@@ -63,7 +63,7 @@ in
   services.xserver.displayManager.gdm.settings.daemon = {
     TimedLoginEnable = true;
     TimedLogin = "htpc";
-    TimedLoginDelay = 5;
+    TimedLoginDelay = 10;
   };
 
   environment.systemPackages = with pkgs; [
