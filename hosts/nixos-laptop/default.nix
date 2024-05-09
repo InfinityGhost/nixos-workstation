@@ -1,8 +1,9 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
     ./hardware-configuration.nix
+    ./fingerprint.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -10,4 +11,8 @@
 
   desktop.gnome.enable = true;
   desktop.games.enable = true;
+
+  environment.systemPackages = with pkgs; [
+    vscode
+  ];
 }
