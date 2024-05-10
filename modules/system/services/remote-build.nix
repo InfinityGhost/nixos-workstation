@@ -1,9 +1,9 @@
 { config, lib, ... }:
 
-with lib;
-
 let
-  cfg = config.services.remote-build;
+  inherit (lib) types mkDefault mkOption mkIf;
+
+  cfg = config.services.remote-build;  
 in
 {
   options.services.remote-build = {
@@ -16,11 +16,14 @@ in
     };
   };
 
-  config.nix = mkIf cfg.enable {
-    buildMachines = [
+  config = mkIf cfg.enable {
+    # Workaround for https://github.com/NixOS/nixpkgs/issues/282856
+    security.pam.enableSSHAgentAuth = mkDefault config.security.sudo.wheelNeedsPassword;
+
+    nix.buildMachines = [
       {
-        hostName = "192.168.0.2";
-        system = "x86_64-linux,i686-linux";
+        hostName = "nixos-workstation";
+        system = "x86_64-linux,i686-linux,aarch64-linux";
         maxJobs = 8;
         speedFactor = 10;
         supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];

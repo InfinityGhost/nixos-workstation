@@ -12,6 +12,8 @@
   desktop.gnome.enable = true;
   desktop.games.enable = true;
 
+  services.remote-build.enable = true;
+
   environment.systemPackages = with pkgs; [
     vscode
   ];
