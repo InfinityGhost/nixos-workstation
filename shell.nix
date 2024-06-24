@@ -1,13 +1,13 @@
 { flake ? builtins.getFlake "path:${toString ./.}"
 , system ? "x86_64-linux"
+, pkgs ? flake.nixpkgsFor.${system}
 }:
 
-let
-  pkgs = flake.nixpkgsFor.${system};
-in pkgs.mkShell {
+pkgs.mkShell {
   buildInputs = with pkgs; [
     nixFlakes
     nix-zsh-completions
+    nix-prefetch
     nixpkgs-fmt
     nettools
     git

@@ -17,8 +17,7 @@ in
       # Launchers
       lutris
       heroic
-      # nix-gaming.osu-stable
-      minecraft
+      # minecraft # marked broken nixpkgs
       minecraft-bedrock
       dolphinEmu
       cemu

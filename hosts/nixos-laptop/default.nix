@@ -4,6 +4,7 @@
   imports = [
     ./hardware-configuration.nix
     ./fingerprint.nix
+    ./printing.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -16,5 +17,6 @@
 
   environment.systemPackages = with pkgs; [
     vscode
+    tigervnc
   ];
 }

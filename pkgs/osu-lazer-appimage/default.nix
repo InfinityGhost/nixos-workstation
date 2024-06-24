@@ -6,8 +6,8 @@
 
 let
   name = "osu-lazer-appimage";
-  version = "2024.302.1";
-  hash = "sha256-vYG3viY9GBtgaY8ThCSWss+zzjAyVa4fmrWrQdYcUow=";
+  version = "2024.521.2";
+  hash = "sha256-QVDgY04PmGJ/eOfes/qBAbBKsk9uOaqLjwZSQH+F9ro=";
 
 in appimageTools.wrapType2 {
   inherit name version;

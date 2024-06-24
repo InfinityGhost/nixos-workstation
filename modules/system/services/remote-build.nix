@@ -17,8 +17,8 @@ in
   };
 
   config = mkIf cfg.enable {
-    # Workaround for https://github.com/NixOS/nixpkgs/issues/282856
-    security.pam.enableSSHAgentAuth = mkDefault config.security.sudo.wheelNeedsPassword;
+    # https://github.com/NixOS/nixpkgs/issues/282856
+    security.pam.sshAgentAuth.enable = true;
 
     nix.buildMachines = [
       {
