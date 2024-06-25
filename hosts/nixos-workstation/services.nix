@@ -12,13 +12,9 @@
     fedora.enable = true;
   };
 
-  services.printing = {
-    enable = true;
-    browsing = true;
-    drivers = with pkgs; [
-      hplip
-    ];
-  };
+  desktop.printing.drivers = with pkgs; [
+    hplipWithPlugin
+  ];
 
   hardware.sane = {
     enable = true;

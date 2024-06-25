@@ -4,7 +4,6 @@
   imports = [
     ./hardware-configuration.nix
     ./fingerprint.nix
-    ./printing.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -12,6 +11,9 @@
 
   desktop.gnome.enable = true;
   desktop.games.enable = true;
+  desktop.printing.drivers = with pkgs; [
+    hplipWithPlugin
+  ];
 
   services.remote-build.enable = true;
 
