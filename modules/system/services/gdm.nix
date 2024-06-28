@@ -15,7 +15,7 @@ in
   };
 
   config = mkIf (cfg != "") {
-    services.xserver.displayManager.job.preStart = ''
+    services.displayManager.preStart = ''
       mkdir -p ~gdm/.config
       ln -sf ${xml} ~gdm/.config/monitors.xml
     '';
