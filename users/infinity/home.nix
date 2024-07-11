@@ -26,7 +26,6 @@
   };
 
   dconf.settings."org/gnome/desktop/interface" = {
-    gtk-theme = "Adwaita-dark";
     icon-them = "Mint-Y-Dark-Blue";
     monospace-font-name = "Ubuntu Mono 12";
     color-scheme = "prefer-dark";

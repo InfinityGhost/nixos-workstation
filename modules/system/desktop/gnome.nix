@@ -4,6 +4,8 @@ let
   inherit (lib) mkEnableOption mkIf;
 
   cfg = config.desktop.gnome;
+
+  gtkTheme = "Adwaita-dark";
 in
 {
   options.desktop.gnome = {
@@ -122,10 +124,27 @@ in
       };
 
       dconf.settings."org/gnome/desktop/interface" = {
-        gtk-theme = "Adwaita-dark";
+        gtk-theme = gtkTheme;
         color-scheme = "prefer-dark";
         monospace-font-name = "Ubuntu Mono 12";
         show-battery-percentage = true;
+      };
+
+      gtk = {
+        enable = true;
+        theme = {
+          name = gtkTheme;
+          package = pkgs.gnome.gnome-themes-extra;
+        };
+      };
+
+      qt = {
+        enable = true;
+        platformTheme.name = gtkTheme;
+        style = {
+          name = gtkTheme;
+          package = pkgs.adwaita-qt;
+        };
       };
 
       dconf.settings."org/gnome/shell/extensions/vertical-workspaces" = {
@@ -164,3 +183,4 @@ in
     '';
   };
 }
+

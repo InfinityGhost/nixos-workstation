@@ -1,14 +1,16 @@
 { lib, config, pkgs, inputs, ... }:
 
 let
+  inherit (lib) mkEnableOption mkIf;
+
   cfg = config.desktop.games;
 in
 {
-  options.desktop.games = with lib; {
+  options.desktop.games = {
     enable = mkEnableOption "games";
   };
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     programs.steam.enable = true;
 
     environment.systemPackages = with pkgs; with pkgs.user; [
