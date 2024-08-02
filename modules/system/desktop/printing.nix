@@ -5,12 +5,13 @@ let
 
   cfg = config.desktop.printing;
 
-  mkOpt = type: default: mkOption { inherit type default; };
-
 in
 {
   options.desktop.printing = {
-    drivers = with types; mkOpt (listOf package) [];
+    drivers = mkOption {
+      type = with types; listOf package;
+      default = [];
+    };
   };
 
   config = mkIf (cfg.drivers != []) {

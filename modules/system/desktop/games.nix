@@ -31,6 +31,8 @@ in
       # Proton
       winetricks
       protontricks
+      # Rhythm games
+      osu-lazer-appimage
     ];
   };
 }

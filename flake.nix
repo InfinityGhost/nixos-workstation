@@ -7,6 +7,7 @@
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixos";
     };
+    opentabletdriver.url = "github:OpenTabletDriver/OpenTabletDriver";
   };
 
   outputs = inputs @ { self, nixos, nixos-unstable, home-manager, ... }: let

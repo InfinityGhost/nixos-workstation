@@ -1,11 +1,9 @@
-{ lib, config, pkgs, flake, system, ... }:
+{ lib, config, pkgs, inputs, flake, system, ... }:
 
 let
   inherit (lib) mkEnableOption mkIf;
 
   cfg = config.desktop.gnome;
-
-  gtkTheme = "Adwaita-dark";
 in
 {
   options.desktop.gnome = {
@@ -29,6 +27,12 @@ in
     services.gnome = {
       tracker-miners.enable = false; # file indexing
       tracker.enable = false; # TODO: not really sure what this does
+    };
+
+    desktop.theme = {
+      name = "Adwaita-dark";
+      gtkPackage = pkgs.gnome.gnome-themes-extra;
+      qtPackage = pkgs.adwaita-qt;
     };
 
     environment.gnome.excludePackages = with pkgs.gnome; [
@@ -89,7 +93,7 @@ in
     hardware.opentabletdriver = {
       enable = true;
       daemon.enable = true;
-      package = pkgs.unstable.opentabletdriver;
+      package = inputs.opentabletdriver.packages.${system}.opentabletdriver;
     };
 
     home-manager.sharedModules = [{
@@ -124,27 +128,9 @@ in
       };
 
       dconf.settings."org/gnome/desktop/interface" = {
-        gtk-theme = gtkTheme;
         color-scheme = "prefer-dark";
         monospace-font-name = "Ubuntu Mono 12";
         show-battery-percentage = true;
-      };
-
-      gtk = {
-        enable = true;
-        theme = {
-          name = gtkTheme;
-          package = pkgs.gnome.gnome-themes-extra;
-        };
-      };
-
-      qt = {
-        enable = true;
-        platformTheme.name = gtkTheme;
-        style = {
-          name = gtkTheme;
-          package = pkgs.adwaita-qt;
-        };
       };
 
       dconf.settings."org/gnome/shell/extensions/vertical-workspaces" = {
@@ -156,10 +142,14 @@ in
         dash-show-recent-files-icon = 0; # hide show recent files icon in tray
         dash-show-windows-icon = 0; # hide show windows icon in tray
         dash-show-extensions-icon = 0; # hide search extensions icon in tray
+        dash-bg-gs3-style = false; # GTK4 dash
+        dash-bg-color = 0; # default background
+        running-dot-style = 1; # line open app indicator
 
         # app grid
         center-app-grid = true; # center app list to middle of display
         app-grid-page-width-scale = 100; # width of grid
+        show-bg-in-overview = true; # disables gray background
       };
 
       dconf.settings."com/github/amezin/ddterm" = {

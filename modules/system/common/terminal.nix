@@ -34,6 +34,7 @@ in
       findtext = "grep -rnw . -e";
       nb = "nix build $@ --no-link --print-out-paths";
       nbo = "nix-store -qR --include-outputs $(nix-store -qd $(nb $@)) | grep -v '\.drv$'";
+      nbl = "nb --log-format bar-with-logs";
     };
     histSize = 10000;
     interactiveShellInit = ''

@@ -4,6 +4,7 @@
   imports = [
     ./hardware-configuration.nix
     ./fingerprint.nix
+    ./guest.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
