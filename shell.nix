@@ -3,7 +3,22 @@
 , pkgs ? flake.nixpkgsFor.${system}
 }:
 
-pkgs.mkShell {
+let
+  updateScript = pkgs.writeShellApplication {
+    name = "update";
+    text = ''
+      echo "Updating lockfile..."
+      nix flake update
+
+      echo "Updating packages..."
+      for script in ./pkgs/*/update.sh; do #*/
+        echo "Executing '$script'"
+        eval "$script"
+      done
+    '';
+  };
+
+in pkgs.mkShell {
   buildInputs = with pkgs; [
     nixFlakes
     nix-zsh-completions
@@ -15,6 +30,7 @@ pkgs.mkShell {
     jq
     android-tools
     dconf2nix
+    updateScript
   ];
   shellHook = ''
     export PATH="${./bin}:$PATH"

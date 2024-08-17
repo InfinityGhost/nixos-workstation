@@ -12,6 +12,7 @@
     };
     shares = {
       vm = "/mnt/Archive/VM";
+      repos = "/repos";
     };
   };
 
