@@ -35,17 +35,23 @@ in
       qtPackage = pkgs.adwaita-qt;
     };
 
-    environment.gnome.excludePackages = with pkgs.gnome; [
+    environment.gnome.excludePackages = with pkgs; with pkgs.gnome; [
       cheese
+      eog
+      epiphany
       geary
       nautilus
       totem
-      epiphany
-      eog
+      yelp
+      gnome-contacts
+      gnome-connections
+      gnome-maps
+      gnome-music
       gnome-shell-extensions
+      gnome-tour
     ];
 
-    environment.systemPackages = with flake.nixpkgsFor.${system}; [
+    environment.systemPackages = with pkgs; [
       # GNOME Software
       gnome.gnome-tweaks
       # GNOME Extensions
@@ -60,7 +66,6 @@ in
       unstable.firefox
       unstable.google-chrome
       unstable.discord
-      gnome-feeds
       # File Management
       cinnamon.nemo
       uget

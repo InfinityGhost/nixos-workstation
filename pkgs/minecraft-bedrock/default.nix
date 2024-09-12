@@ -6,11 +6,11 @@
 let
   pname = "minecraft-bedrock";
   name = pname;
-  version="v0.15.2-796";
+  version = "v1.0.0-798";
 
   src = fetchurl {
-    url = "https://github.com/minecraft-linux/appimage-builder/releases/download/v0.15.2-796/Minecraft_Bedrock_Launcher-x86_64-v0.15.2.796.AppImage";
-    hash = "sha256-4Vb6y9H6SVrzkVjx1GEka1JxOp1zIzgRrrOMS7GXMgA=";
+    url = "https://github.com/minecraft-linux/appimage-builder/releases/download/v1.0.0-798/Minecraft_Bedrock_Launcher-x86_64-v1.0.0.798.AppImage";
+    hash = "sha256-xPKt6Xn0pR3IWT2ONqZ6+JPe9q0T5bZvXFQpt0hgzAo=";
   };
 
   desktopItem = makeDesktopItem {

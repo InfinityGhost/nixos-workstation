@@ -11,6 +11,6 @@ file="Minecraft_Bedrock_Launcher-$arch-${tag/-/.}.AppImage"
 new_url="https://github.com/$REPO/releases/download/$tag/$file"
 sri_hash="$(nix-prefetch -q fetchurl --url "$new_url")"
 
-sed -i -e "s|version = \".*\"|version=\"$tag\"|g" "$FILE"
+sed -i -e "s|version = \".*\"|version = \"$tag\"|g" "$FILE"
 sed -i -e "s|url = \"https:\/\/.*\"|url = \"$new_url\"|g" "$FILE"
 sed -i -e "s|hash = \".*\"|hash = \"$sri_hash\"|g" "$FILE"
