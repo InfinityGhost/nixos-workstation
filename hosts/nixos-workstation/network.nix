@@ -2,7 +2,6 @@
   networking = {
     hostId = "002199b0";
     useDHCP = false;
-    firewall.enable = false;
     nameservers = [ "1.1.1.1" "1.0.0.1" ];
 
     interfaces.enp39s0.useDHCP = true;

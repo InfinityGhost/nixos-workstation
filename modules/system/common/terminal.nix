@@ -103,4 +103,8 @@ in
       }
     '';
   };
+
+  home-manager.sharedModules = [{
+    programs.direnv.config.global.warn_timeout = "1h";
+  }];
 }
