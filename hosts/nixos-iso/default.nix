@@ -16,6 +16,6 @@
   desktop.gnome.enable = true;
 
   environment.systemPackages = with pkgs; [
-    vscode
+    vscode.fhs
   ];
 }

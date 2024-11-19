@@ -19,7 +19,7 @@ in
       # SDK
       dotnet-sdk
       # IDE
-      vscode
+      vscode.fhs
       jetbrains.rider
     ];
   };

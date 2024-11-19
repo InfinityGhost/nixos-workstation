@@ -19,7 +19,6 @@
   services.remote-build.enable = true;
 
   environment.systemPackages = with pkgs; [
-    vscode
     tigervnc
   ];
 }
