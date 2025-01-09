@@ -15,6 +15,8 @@
 
   desktop.gnome.enable = true;
   desktop.games.enable = true;
+  hardware.thrustmaster.enable = true;
+
   desktop.vnc-server.enable = true;
 
   development.dotnet.enable = true;

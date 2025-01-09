@@ -7,10 +7,10 @@
 
 let
   name = "osu-lazer-appimage";
-  version = "2024.1115.3";
+  version = "2024.1219.2";
 
   src = fetchurl {
-    hash = "sha256-kwZHy0FfOUFIWvyOj0ghlQz05U+Lnzl5TgC4T6bhm7o=";
+    hash = "sha256-qNkuiDA4LiWqwpYFrBDvV5VoOwO6Ei8jHGIgVKSErdo=";
     url = "https://github.com/ppy/osu/releases/download/${version}/osu.AppImage";
   };
 
@@ -38,6 +38,6 @@ in symlinkJoin {
   paths = [ appimage desktopItem ];
   postBuild = ''
     mkdir -p $out/share/icons
-    install -D ${data}/osu\!.png $out/share/icons
+    install -D ${data}/*.png $out/share/icons
   '';
 }
