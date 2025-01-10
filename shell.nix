@@ -20,7 +20,6 @@ let
 
 in pkgs.mkShell {
   buildInputs = with pkgs; [
-    nixFlakes
     nix-zsh-completions
     nix-prefetch
     nixpkgs-fmt

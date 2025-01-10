@@ -2,7 +2,7 @@
 
 {
   boot = {
-    kernelPackages = pkgs.zfs.latestCompatibleLinuxPackages;
+    kernelPackages = pkgs.linuxPackages;
     extraModprobeConfig = ''
       options kvm ignore_msrs=Y
       options kvm report_ignored_msrs=N

@@ -21,10 +21,10 @@ in
       heroic
       # minecraft # marked broken nixpkgs
       minecraft-bedrock
-      dolphinEmu
+      dolphin-emu
       cemu
-      gnome.aisleriot
-      gnome.quadrapassel
+      aisleriot
+      quadrapassel
       # Steam dependencies
       python3
       killall
@@ -33,6 +33,8 @@ in
       protontricks
       # Rhythm games
       osu-lazer-appimage
+      # Other
+      space-cadet-pinball
     ];
   };
 }

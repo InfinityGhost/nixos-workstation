@@ -1,5 +1,5 @@
 self: super: {
-  mint-y-icons = super.cinnamon.mint-y-icons.overrideAttrs (old: {
+  mint-y-icons = super.mint-y-icons.overrideAttrs (old: {
     src = super.fetchFromGitHub {
       owner = "linuxmint";
       repo = "mint-y-icons";

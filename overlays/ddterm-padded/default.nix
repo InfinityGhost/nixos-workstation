@@ -25,7 +25,7 @@ self: super: {
 
       perl -0777pe "$REGEX" -i ddterm/shell/wm.js
 
-      jq '."shell-version"=["${super.lib.versions.major super.gnome.gnome-shell-extensions.version}"]' metadata.json > metadata.json.new
+      jq '."shell-version"=["${super.lib.versions.major super.gnome-shell-extensions.version}"]' metadata.json > metadata.json.new
       mv metadata.json{.new,}
     '';
   });

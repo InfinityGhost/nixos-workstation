@@ -32,8 +32,11 @@
     show-battery-percentage = true;
   };
 
-  dconf.settings."org/gnome/desktop/background" = {
-    picture-uri = "file:///${pkgs.gnome.gnome-backgrounds}/share/backgrounds/gnome/pixels-l.jpg";
-    picture-uri-dark = "file:///${pkgs.gnome.gnome-backgrounds}/share/backgrounds/gnome/pixels-d.jpg";
+  dconf.settings."org/gnome/desktop/background" = let
+    name = "lcd-rainbow";
+    uri = theme: "file:///${pkgs.gnome-backgrounds}/share/backgrounds/gnome/${name}-${theme}.jxl";
+  in {
+    picture-uri = uri "l";
+    picture-uri-dark = uri "d";
   };
 }

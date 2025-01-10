@@ -1,10 +1,10 @@
 {
   inputs = {
-    nixos.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixos.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nix-gaming.url = "github:fufexan/nix-gaming";
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.05";
+      url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixos";
     };
     opentabletdriver.url = "github:OpenTabletDriver/OpenTabletDriver";

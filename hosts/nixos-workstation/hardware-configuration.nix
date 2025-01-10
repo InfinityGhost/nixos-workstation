@@ -17,6 +17,7 @@
   };
 
   services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.nvidia.open = false; # GTX 1070
 
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 

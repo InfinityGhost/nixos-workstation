@@ -25,17 +25,17 @@ in
     };
 
     services.gnome = {
-      tracker-miners.enable = false; # file indexing
-      tracker.enable = false; # TODO: not really sure what this does
+      tinysparql.enable = false;
+      localsearch.enable = false;
     };
 
     desktop.theme = {
       name = "Adwaita-dark";
-      gtkPackage = pkgs.gnome.gnome-themes-extra;
+      gtkPackage = pkgs.gnome-themes-extra;
       qtPackage = pkgs.adwaita-qt;
     };
 
-    environment.gnome.excludePackages = with pkgs; with pkgs.gnome; [
+    environment.gnome.excludePackages = with pkgs; [
       cheese
       eog
       epiphany
@@ -53,7 +53,7 @@ in
 
     environment.systemPackages = with pkgs; [
       # GNOME Software
-      gnome.gnome-tweaks
+      gnome-tweaks
       # GNOME Extensions
       gse-ddterm-padded
       gse-resize-window
@@ -67,7 +67,7 @@ in
       unstable.google-chrome
       unstable.discord
       # File Management
-      cinnamon.nemo
+      nemo
       uget
       # Audio
       spot
@@ -93,7 +93,7 @@ in
       unstable.scrcpy
     ];
 
-    hardware.opengl.driSupport32Bit = true;
+    hardware.graphics.enable32Bit = true;
 
     hardware.opentabletdriver = {
       enable = true;
