@@ -30,6 +30,7 @@ in pkgs.mkShell {
     android-tools
     dconf2nix
     updateScript
+    shellcheck
   ];
   shellHook = ''
     export PATH="${./bin}:$PATH"
