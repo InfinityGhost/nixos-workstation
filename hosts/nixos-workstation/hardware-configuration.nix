@@ -24,6 +24,7 @@
   services.xserver.displayManager.gdm.monitors.xml = ''
     <monitors version="2">
       <configuration>
+        <layoutmode>physical</layoutmode>
         <logicalmonitor>
           <x>0</x>
           <y>0</y>

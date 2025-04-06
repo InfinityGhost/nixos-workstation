@@ -12,6 +12,7 @@
     "code"
     "rider"
     "steam"
+    "looking-glass-client"
   ];
 
   dconf.settings."org/gnome/mutter".edge-tiling = false;

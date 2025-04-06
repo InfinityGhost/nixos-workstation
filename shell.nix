@@ -3,22 +3,7 @@
 , pkgs ? flake.nixpkgsFor.${system}
 }:
 
-let
-  updateScript = pkgs.writeShellApplication {
-    name = "update";
-    text = ''
-      echo "Updating lockfile..."
-      nix flake update
-
-      echo "Updating packages..."
-      for script in ./pkgs/*/update.sh; do #*/
-        echo "Executing '$script'"
-        eval "$script"
-      done
-    '';
-  };
-
-in pkgs.mkShell {
+pkgs.mkShell {
   buildInputs = with pkgs; [
     nix-zsh-completions
     nix-prefetch
@@ -29,7 +14,6 @@ in pkgs.mkShell {
     jq
     android-tools
     dconf2nix
-    updateScript
     shellcheck
   ];
   shellHook = ''

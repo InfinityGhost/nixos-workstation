@@ -12,10 +12,8 @@
 
   desktop.gnome.enable = true;
   desktop.games.enable = true;
-  desktop.printing.drivers = with pkgs; [
-    hplipWithPlugin
-  ];
 
+  services.printing.enableHP = true;
   services.remote-build.enable = true;
 
   environment.systemPackages = with pkgs; [

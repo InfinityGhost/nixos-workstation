@@ -12,16 +12,6 @@
     fedora.enable = true;
   };
 
-  desktop.printing.drivers = with pkgs; [
-    hplipWithPlugin
-  ];
-
-  hardware.sane = {
-    enable = true;
-    extraBackends = with pkgs; [
-      hplipWithPlugin
-    ];
-  };
-
+  services.printing.enableHP = true;
   services.minecraft-bedrock-server.enable = true;
 }

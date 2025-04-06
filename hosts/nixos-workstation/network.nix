@@ -14,13 +14,5 @@
     '';
   };
 
-  services.vpn.servers.mullvad = {};
-
-  services.deluge = {
-    enable = true;
-    vpns = [ "mullvad" ];
-  };
-
-  users.users.deluge.extraGroups = [ "media" ];
   users.groups.media = {};
 }

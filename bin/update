@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+echo "Updating lockfile..."
+nix flake update
+
+echo "Updating packages..."
+for script in ./{pkgs,overlays}/*/update.sh; do
+  echo "Executing '$script'"
+  eval "$script"
+done
