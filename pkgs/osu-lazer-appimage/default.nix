@@ -7,10 +7,10 @@
 
 let
   name = "osu-lazer-appimage";
-  version = "2025.321.0";
+  version = "2025.424.0";
 
   src = fetchurl {
-    hash = "sha256-mNxoEx/wgJ1OUm7y9JLd5vHSwfcB49QjKDVQWZaMDJQ=";
+    hash = "sha256-8nOoSkNbzEFpDj0FivCYI20tZzT02YHcKZblfEfh+Zo=";
     url = "https://github.com/ppy/osu/releases/download/${version}/osu.AppImage";
   };
 

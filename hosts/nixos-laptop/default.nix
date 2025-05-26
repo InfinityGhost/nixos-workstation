@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   imports = [
@@ -19,4 +19,13 @@
   environment.systemPackages = with pkgs; [
     tigervnc
   ];
+
+  home-manager.sharedModules = [{
+    dconf.settings."org/gnome/desktop/background" = let
+      uri = lib.mkForce "/home/infinity/Pictures/bg.jpg";
+    in {
+      picture-uri = uri;
+      picture-uri-dark = uri;
+    };
+  }];
 }

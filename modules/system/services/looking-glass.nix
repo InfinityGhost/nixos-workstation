@@ -8,6 +8,7 @@ let
   defaultConfig = {
     app.cursorPollInterval = 2000;
     win = {
+      fullScreen = true;
       noScreensaver = true;
       quickSplash = true;
       showFps = true;

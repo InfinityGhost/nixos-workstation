@@ -54,6 +54,7 @@ in
     environment.systemPackages = with pkgs; [
       # GNOME Software
       gnome-tweaks
+      zenity
       # GNOME Extensions
       gse-ddterm-padded
       gse-resize-window
@@ -176,6 +177,8 @@ in
         Option "AccelSpeed" "0"
       EndSection
     '';
+
+    environment.sessionVariables.MOZ_USE_XINPUT2 = 1; # fix touch input
   };
 }
 
