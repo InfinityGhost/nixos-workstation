@@ -25,6 +25,11 @@
       inherit system;
       config.allowUnfree = true;
       overlays = (attrValues self.overlays) ++ [ self.overlay ];
+
+      # TODO: figure out what package uses this old electron
+      config.permittedInsecurePackages = [
+        "electron-33.4.11"
+      ];
     };
 
   in rec {
