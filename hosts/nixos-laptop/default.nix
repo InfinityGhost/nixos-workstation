@@ -3,7 +3,7 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ./fingerprint.nix
+#    ./fingerprint.nix # TODO: fprintd thinkpad package broken
     ./guest.nix
   ];
 

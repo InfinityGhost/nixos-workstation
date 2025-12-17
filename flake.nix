@@ -1,10 +1,10 @@
 {
   inputs = {
-    nixos.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixos.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nix-gaming.url = "github:fufexan/nix-gaming";
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.11";
+      url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixos";
     };
     opentabletdriver.url = "github:OpenTabletDriver/OpenTabletDriver";
@@ -26,9 +26,9 @@
       config.allowUnfree = true;
       overlays = (attrValues self.overlays) ++ [ self.overlay ];
 
-      # TODO: figure out what package uses this old electron
       config.permittedInsecurePackages = [
-        "electron-33.4.11"
+        "electron-33.4.11" # TODO: figure out what package uses this old electron
+        "mbedtls-2.28.10" # TODO 2025-11-12
       ];
     };
 
@@ -55,7 +55,7 @@
           ./hosts/default.nix # shared system config
           ./hosts/${name} # host specific config
 
-          home-manager.nixosModule
+          home-manager.nixosModules.default
 
           {
             networking.hostName = name; # set hostname

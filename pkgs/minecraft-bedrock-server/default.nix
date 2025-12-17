@@ -3,7 +3,7 @@
 , lib
 , patchelf
 , stdenv
-, buildFHSUserEnv
+, buildFHSEnv
 }:
 
 let
@@ -18,7 +18,7 @@ let
     sha256 = "DjgediOjHdcRg66dEXVgMxe84hgh+ptS63xpMVzdoqw=";
   };
 
-in buildFHSUserEnv {
+in buildFHSEnv {
   inherit name;
 
   targetPkgs = pkgs: with pkgs; [

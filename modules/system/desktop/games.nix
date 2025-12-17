@@ -19,8 +19,8 @@ in
       # Launchers
       lutris
       heroic
-      # minecraft # marked broken nixpkgs
-      minecraft-bedrock
+#      minecraft # marked broken nixpkgs
+#      minecraft-bedrock # not compiling
       dolphin-emu
       cemu
       aisleriot
@@ -32,7 +32,7 @@ in
       winetricks
       protontricks
       # Rhythm games
-      osu-lazer-appimage
+#      osu-lazer-appimage
       # Other
       space-cadet-pinball
     ];

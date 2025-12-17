@@ -10,17 +10,13 @@ let
   version = "2025.702.0-tachyon";
 
   src = fetchurl {
-    hash = "sha256-hPLHh457e5EoPqtcSIE1B7W0iZWbeeUUoAI0qtWUeXU=";
+    hash = "sha256-ZqKM6NKoWqmVnWrB1SSy0YWD+aV2wmtkCi3sUAVecE0=";
     url = "https://github.com/ppy/osu/releases/download/${version}/osu.AppImage";
   };
 
   appimage = appimageTools.wrapType2 {
     inherit name version src;
     extraPkgs = pkgs: with pkgs; [ icu ];
-  };
-
-  data = appimageTools.extract {
-    inherit name version src;
   };
 
   desktopItem = makeDesktopItem {
@@ -36,8 +32,5 @@ let
 in symlinkJoin {
   inherit name;
   paths = [ appimage desktopItem ];
-  postBuild = ''
-    mkdir -p $out/share/icons
-    install -D ${data}/*.png $out/share/icons
-  '';
+  # TODO: fix postBuild
 }

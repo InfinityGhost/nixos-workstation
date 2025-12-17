@@ -7,8 +7,8 @@ self: super: {
     src = super.fetchFromGitHub {
       owner = "gnif";
       repo = "LookingGlass";
-      rev = "cb304115f68eb5ba5632eaacf5fb2d34f93e6814";
-      hash = "sha256-bK3/tBReH1TMurQsOtaIVKmTbxriSV8JfFMSwHZvDaY=";
+      rev = "3efe47ffb21ca96ed46b2a9342b3cee4df553987";
+      hash = "sha256-kIS5JuEu2DnZdB+kRQ6jUR6pcR0hYiJLjZK3witvJcM=";
       fetchSubmodules = true;
     };
   });
