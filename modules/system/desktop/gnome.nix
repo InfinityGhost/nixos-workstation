@@ -4,10 +4,21 @@ let
   inherit (lib) mkEnableOption mkIf;
 
   cfg = config.desktop.gnome;
+
+  sleepCfg = if cfg.autoSuspend then {
+    sleep-inactive-ac-type = "suspend";
+    sleep-inactive-battery-type = "suspend";
+  } else {
+    sleep-inactive-ac-type = "nothing";
+    sleep-inactive-ac-timeout = 0;
+    sleep-inactive-battery-type = "nothing";
+    sleep-inactive-battery-timeout = 0;
+  };
 in
 {
   options.desktop.gnome = {
     enable = mkEnableOption "GNOME desktop environment";
+    autoSuspend = mkEnableOption "Enable auto suspend in gnome power options";
   };
 
   config = mkIf cfg.enable {
@@ -91,7 +102,7 @@ in
       blender
       # Utilities
       xclip
-      unstable.scrcpy
+#      unstable.scrcpy
     ];
 
     hardware.graphics.enable32Bit = true;
@@ -99,7 +110,7 @@ in
     hardware.opentabletdriver = {
       enable = true;
       daemon.enable = true;
-      package = inputs.opentabletdriver.packages.${system}.opentabletdriver;
+#      package = inputs.opentabletdriver.packages.${system}.opentabletdriver; # TODO: reintroduce flake in repo
     };
 
     home-manager.sharedModules = [{
@@ -166,7 +177,11 @@ in
         notebook-border = false;
         show-scrollbar = false;
       };
+
+      dconf.settings."org/gnome/settings-daemon/plugins/power" = sleepCfg;
     }];
+
+    home-manager.users.gdm.dconf.settings."org/gnome/settings-daemon/plugins/power" = sleepCfg;
 
     environment.etc."X11/xorg.conf.d/50-mouse-acceleration.conf".text = ''
       Section "InputClass"

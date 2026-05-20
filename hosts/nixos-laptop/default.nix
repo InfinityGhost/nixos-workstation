@@ -10,8 +10,10 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  desktop.gnome.enable = true;
-  desktop.games.enable = true;
+  desktop.gnome = {
+    enable = true;
+    autoSuspend = true;
+  };
 
   services.printing.enableHP = true;
   services.remote-build.enable = true;

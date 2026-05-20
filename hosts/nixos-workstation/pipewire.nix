@@ -10,5 +10,5 @@
   security.rtkit.enable = true;
 
   # disable the default sound server
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
 }

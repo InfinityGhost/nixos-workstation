@@ -7,7 +7,6 @@
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixos";
     };
-    opentabletdriver.url = "github:OpenTabletDriver/OpenTabletDriver";
   };
 
   outputs = inputs @ { self, nixos, nixos-unstable, home-manager, ... }: let
@@ -26,9 +25,9 @@
       config.allowUnfree = true;
       overlays = (attrValues self.overlays) ++ [ self.overlay ];
 
+      # Find override dependencies with `nix-store --query --referrers /nix/store/*-${package}-${version}`
       config.permittedInsecurePackages = [
-        "electron-33.4.11" # TODO: figure out what package uses this old electron
-        "mbedtls-2.28.10" # TODO 2025-11-12
+        "electron-36.9.5" # Heroic depends on this old electron
       ];
     };
 

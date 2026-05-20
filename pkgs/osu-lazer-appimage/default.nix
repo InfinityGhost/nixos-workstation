@@ -10,7 +10,7 @@ let
   version = "2025.702.0-tachyon";
 
   src = fetchurl {
-    hash = "sha256-ZqKM6NKoWqmVnWrB1SSy0YWD+aV2wmtkCi3sUAVecE0=";
+    hash = "sha256-4LLNjrKEBS77LIbq+O6Xpxj6CvufGDApNqs61HN2JmA=";
     url = "https://github.com/ppy/osu/releases/download/${version}/osu.AppImage";
   };
 
